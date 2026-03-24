@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ITVision Academy — Coming Soon",
+  title: "ITVision Academy — World-Class Tech Education",
   description:
-    "ITVision Academy is launching soon. World-class tech education is on its way.",
+    "Access the best learning courses in IT, cloud, cybersecurity, and development. Hands-on labs, expert mentors, and industry certifications.",
 };
 
 export default function RootLayout({
@@ -26,9 +26,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
