@@ -14,7 +14,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "ITVision Academy — World-Class Tech Education",
+  title: "ITVision Academy - World-Class Tech Education",
   description:
     "Access the best learning courses in IT, cloud, cybersecurity, and development. Hands-on labs, expert mentors, and industry certifications.",
 };

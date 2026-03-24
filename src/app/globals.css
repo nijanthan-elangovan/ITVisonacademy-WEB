@@ -3,9 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #1a1a2e;
-  --primary: #1EAED7;
-  --primary-dark: #0D3B66;
-  --accent: #0fa67f;
+  --primary: #2ca9df;
+  --primary-dark: #203b77;
+  --accent: #4bc2f1;
   --muted: #f4f7fa;
   --muted-dark: #e8ecf1;
 }
@@ -23,7 +23,7 @@
 }
 
 body {
-  background: var(--background);
+  background: #e7ecea;
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
@@ -39,4 +39,8 @@ h1, h2, h3, h4, h5, h6 {
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-12px); }
+}
+
+summary::-webkit-details-marker {
+  display: none;
 }
