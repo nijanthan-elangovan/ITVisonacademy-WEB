@@ -22,8 +22,15 @@ import {
   Sparkles,
   ArrowRight,
   Star,
-  Linkedin,
 } from "lucide-react";
+
+function LinkedinIcon({ size = 16, className = "" }: { size?: number; className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -582,7 +589,7 @@ function Footer() {
                 <a href="tel:7373322742" className="text-sm text-white/50 hover:text-white transition-colors">737-332-2742</a>
               </li>
               <li className="flex items-center gap-2">
-                <Linkedin size={16} className="text-[#1EAED7] shrink-0" />
+                <LinkedinIcon size={16} className="text-[#1EAED7] shrink-0" />
                 <a href="https://www.linkedin.com/company/itvisionacademy/" target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 hover:text-white transition-colors">LinkedIn</a>
               </li>
             </ul>
@@ -595,7 +602,7 @@ function Footer() {
           <p className="text-xs text-white/40">&copy; {new Date().getFullYear()} ITVision Academy. All rights reserved.</p>
           <div className="flex gap-4">
             <a href="https://www.linkedin.com/company/itvisionacademy/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#1EAED7] transition-colors">
-              <Linkedin size={14} />
+              <LinkedinIcon size={14} />
             </a>
           </div>
         </div>
