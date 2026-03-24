@@ -248,10 +248,10 @@ function CourseCard({
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#e7ecea] px-3 py-4 text-[#1c2635] sm:px-5 sm:py-6">
-      <div className="mx-auto max-w-[1240px] rounded-[1.6rem] border border-black/5 bg-[#fbfbf9] p-3 shadow-[0_18px_70px_rgba(15,23,42,0.08)] sm:p-5">
+    <main className="min-h-screen bg-[#fbfbf9] text-[#1c2635]">
+      <div className="w-full bg-[#fbfbf9]">
         <header className="rounded-[1.25rem] bg-white px-5 py-4 shadow-[0_8px_26px_rgba(15,23,42,0.04)]">
-          <div className="flex items-center justify-between gap-4">
+          <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <Image src="/logo.png" alt="ITVision Academy" width={132} height={34} priority />
             </div>
@@ -275,8 +275,8 @@ export default function Home() {
           </div>
         </header>
 
-        <section className="mt-4 overflow-hidden rounded-[1.55rem] bg-[linear-gradient(135deg,#2ca9df_0%,#2387cf_48%,#203b77_100%)] px-6 py-8 text-white sm:px-10 sm:py-10 lg:px-12 lg:py-12">
-          <div className="grid gap-10 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
+        <section className="mt-4 overflow-hidden bg-[linear-gradient(135deg,#2ca9df_0%,#2387cf_48%,#203b77_100%)] px-6 py-8 text-white sm:px-10 sm:py-10 lg:px-12 lg:py-12">
+          <div className="mx-auto grid max-w-[1240px] gap-10 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
             <div>
               <SectionEyebrow>Enhance Your Career</SectionEyebrow>
               <h1 className="mt-5 max-w-[560px] text-4xl font-extrabold leading-[1.05] tracking-[-0.04em] sm:text-5xl lg:text-[3.9rem]">
@@ -347,8 +347,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="px-2 py-7 sm:px-5">
-          <div className="grid gap-4 border-b border-[#edf0ee] pb-6 text-center sm:grid-cols-4 sm:text-left">
+        <section className="px-6 py-7 sm:px-10 lg:px-12">
+          <div className="mx-auto grid max-w-[1240px] gap-4 border-b border-[#edf0ee] pb-6 text-center sm:grid-cols-4 sm:text-left">
             <div className="text-xs text-[#96a0aa]">
               More than 60+ companies trusted us
             </div>
@@ -363,15 +363,15 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="px-2 py-10 sm:px-5 sm:py-14">
-          <div className="text-center">
+        <section id="about" className="px-6 py-10 sm:px-10 sm:py-14 lg:px-12">
+          <div className="mx-auto max-w-[1240px] text-center">
             <SectionEyebrow>Why Choose Us</SectionEyebrow>
             <h2 className="mx-auto mt-5 max-w-[620px] text-3xl font-extrabold tracking-[-0.04em] text-[#111827] sm:text-[2.6rem]">
               Dive into online courses on diverse subjects
             </h2>
           </div>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
+          <div className="mx-auto mt-10 grid max-w-[1240px] gap-5 md:grid-cols-2">
             {features.map(({ icon: Icon, title, description, tint }) => (
               <article
                 key={title}
@@ -395,8 +395,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="px-2 py-6 sm:px-5 sm:py-10">
-          <div className="overflow-hidden rounded-[1.55rem] bg-[#1c2c40] px-6 py-7 text-white sm:px-8 sm:py-9 lg:px-10">
+        <section className="px-6 py-6 sm:px-10 sm:py-10 lg:px-12">
+          <div className="mx-auto max-w-[1240px] overflow-hidden rounded-[1.55rem] bg-[#1c2c40] px-6 py-7 text-white sm:px-8 sm:py-9 lg:px-10">
             <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
               <div className="relative min-h-[320px]">
                 <div className="absolute left-0 top-16 rotate-[-16deg]">
@@ -438,8 +438,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="courses" className="px-2 py-10 sm:px-5 sm:py-14">
-          <div className="text-center">
+        <section id="courses" className="px-6 py-10 sm:px-10 sm:py-14 lg:px-12">
+          <div className="mx-auto max-w-[1240px] text-center">
             <SectionEyebrow>Our Best Courses</SectionEyebrow>
             <h2 className="mx-auto mt-5 max-w-[660px] text-3xl font-extrabold tracking-[-0.04em] text-[#111827] sm:text-[2.6rem]">
               Discover a most popular Online Course
@@ -461,15 +461,15 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mx-auto mt-10 grid max-w-[1240px] gap-5 md:grid-cols-2 xl:grid-cols-3">
             {courses.map((course) => (
               <CourseCard key={course.title} {...course} />
             ))}
           </div>
         </section>
 
-        <section id="community" className="px-2 py-6 sm:px-5 sm:py-10">
-          <div className="grid gap-8 rounded-[1.45rem] bg-white p-6 shadow-[0_14px_40px_rgba(15,23,42,0.05)] ring-1 ring-black/5 lg:grid-cols-[0.95fr_1.05fr] lg:p-8">
+        <section id="community" className="px-6 py-6 sm:px-10 sm:py-10 lg:px-12">
+          <div className="mx-auto grid max-w-[1240px] gap-8 rounded-[1.45rem] bg-white p-6 shadow-[0_14px_40px_rgba(15,23,42,0.05)] ring-1 ring-black/5 lg:grid-cols-[0.95fr_1.05fr] lg:p-8">
             <div className="flex flex-col justify-center">
               <SectionEyebrow>Learn Smarter, Not Harder</SectionEyebrow>
               <h2 className="mt-5 max-w-[500px] text-3xl font-extrabold tracking-[-0.04em] text-[#111827] sm:text-[2.6rem]">
@@ -513,7 +513,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="px-2 py-10 sm:px-5 sm:py-14">
+        <section className="px-6 py-10 sm:px-10 sm:py-14 lg:px-12">
           <div className="mx-auto max-w-[860px] text-center">
             <SectionEyebrow>Frequently Asked Questions</SectionEyebrow>
             <h2 className="mt-5 text-3xl font-extrabold tracking-[-0.04em] text-[#111827] sm:text-[2.6rem]">
@@ -555,8 +555,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="download" className="px-2 pb-3 pt-6 sm:px-5">
-          <div className="relative overflow-hidden rounded-[1.55rem] bg-[linear-gradient(135deg,#2ca9df_0%,#2492d7_45%,#203b77_100%)] px-7 py-8 text-white sm:px-10 sm:py-10">
+        <section id="download" className="px-6 pb-3 pt-6 sm:px-10 lg:px-12">
+          <div className="mx-auto max-w-[1240px] overflow-hidden rounded-[1.55rem] bg-[linear-gradient(135deg,#2ca9df_0%,#2492d7_45%,#203b77_100%)] px-7 py-8 text-white sm:px-10 sm:py-10">
             <div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
               <div>
                 <h2 className="max-w-[470px] text-3xl font-extrabold leading-tight tracking-[-0.04em] sm:text-[2.8rem]">
@@ -596,9 +596,9 @@ export default function Home() {
 
         <footer
           id="footer"
-          className="mt-4 rounded-[1.35rem] bg-[#18283a] px-6 py-8 text-white sm:px-8 sm:py-10"
+          className="mt-4 bg-[#18283a] px-6 py-8 text-white sm:px-8 sm:py-10 lg:px-12"
         >
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.9fr_0.8fr_1fr]">
+          <div className="mx-auto grid max-w-[1240px] gap-8 lg:grid-cols-[1.2fr_0.9fr_0.8fr_1fr]">
             <div>
               <Image
                 src="/logo.png"
@@ -643,7 +643,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mx-auto mt-8 flex max-w-[1240px] flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs text-white/45">Copyright © 2026 ITVision</p>
             <div className="flex items-center gap-3 text-white/60">
               <a
