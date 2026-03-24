@@ -18,8 +18,8 @@
   --color-accent: var(--accent);
   --color-muted: var(--muted);
   --color-muted-dark: var(--muted-dark);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-jakarta);
 }
 
 body {
@@ -30,6 +30,10 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), var(--font-sans), sans-serif;
 }
 
 @keyframes float {
