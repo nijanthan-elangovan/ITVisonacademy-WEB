@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Apple,
   ArrowUpRight,
@@ -46,7 +46,33 @@ const scaleIn = {
 };
 
 /* ── data ── */
-const partners = ["Microsoft", "Evernote", "Medium"];
+type CourseCardModel = {
+  category: string;
+  title: string;
+  author: string;
+  lessons: string;
+  price: string;
+  oldPrice: string;
+  rating: string;
+};
+
+type FaqModel = {
+  question: string;
+  answer: string;
+};
+
+type HomeDataResponse = {
+  ok: boolean;
+  partners?: string[];
+  courses?: CourseCardModel[];
+  faqs?: FaqModel[];
+  stats?: {
+    products: number;
+    customers: number;
+  };
+};
+
+const fallbackPartners = ["Shopify", "Collections", "Catalog"];
 
 const features = [
   {
@@ -80,7 +106,7 @@ const skillTags = [
   "Data Science", "Photography", "Personal Development", "Marketing",
 ];
 
-const courses = [
+const fallbackCourses: CourseCardModel[] = [
   { category: "GRAPHICS DESIGN", title: "The Complete Graphic Design Theory For Beginners Course", author: "Shivon dowel", lessons: "12 Sessions", price: "$18.00", oldPrice: "$24.00", rating: "5.0 (6,023)" },
   { category: "ANIMATION", title: "After Effect Masterclass: how to rigging character easily", author: "John Connor", lessons: "12 Sessions", price: "$12.00", oldPrice: "$24.00", rating: "5.0 (6,023)" },
   { category: "IT SOFTWARE", title: "CCNA 2020 200-125 video Boot Camp With Chris Bryant", author: "Chris Bryant", lessons: "12 Sessions", price: "$12.00", oldPrice: "$24.00", rating: "5.0 (6,023)" },
@@ -89,7 +115,7 @@ const courses = [
   { category: "DATA SCIENCE", title: "Python for Data Science and Machine Learning Bootcamp", author: "Nanne Maxwell", lessons: "12 Sessions", price: "$12.00", oldPrice: "$24.00", rating: "5.0 (6,023)" },
 ];
 
-const faqs = [
+const fallbackFaqs: FaqModel[] = [
   { question: "Is my personal information safe on the app?", answer: "Yes. We use secure account handling, encrypted form flows, and privacy-aware storage practices to protect personal information." },
   { question: "What types of courses are available on these apps?", answer: "You can access design, development, business, data, and productivity courses, along with short skills-based programs." },
   { question: "Are certificates or credentials provided upon course completion?", answer: "Yes. Many programs include completion certificates and guided paths that support career-ready portfolio work." },
@@ -149,7 +175,7 @@ function PhoneMockup({ compact = false }: { compact?: boolean }) {
   );
 }
 
-function CourseCard({ category, title, author, lessons, price, oldPrice, rating }: (typeof courses)[number]) {
+function CourseCard({ category, title, author, lessons, price, oldPrice, rating }: CourseCardModel) {
   return (
     <motion.article
       variants={fadeUp}
@@ -199,6 +225,57 @@ function MobileNav() {
 /* ── page ── */
 
 export default function Home() {
+  const [partners, setPartners] = useState(fallbackPartners);
+  const [courses, setCourses] = useState<CourseCardModel[]>(fallbackCourses);
+  const [faqs, setFaqs] = useState<FaqModel[]>(fallbackFaqs);
+  const [stats, setStats] = useState({ products: 0, customers: 0 });
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadHomeData = async () => {
+      try {
+        const response = await fetch("/api/homepage-data", { cache: "no-store" });
+        if (!response.ok) {
+          return;
+        }
+
+        const payload = (await response.json()) as HomeDataResponse;
+        if (!payload.ok || cancelled) {
+          return;
+        }
+
+        if (payload.partners && payload.partners.length > 0) {
+          setPartners(payload.partners);
+        }
+
+        if (payload.courses && payload.courses.length > 0) {
+          setCourses(payload.courses);
+        }
+
+        if (payload.faqs && payload.faqs.length > 0) {
+          setFaqs(payload.faqs);
+        }
+
+        if (payload.stats) {
+          setStats(payload.stats);
+        }
+      } catch {
+        // Keep fallback values when API is unavailable.
+      }
+    };
+
+    void loadHomeData();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const filteredCourses = courses.filter((course) =>
+    course.title.toLowerCase().includes(searchValue.toLowerCase()),
+  );
+
   return (
     <main className="min-h-screen bg-[#e7ecea] text-[#1c2635]">
       <div className="w-full">
@@ -372,7 +449,13 @@ export default function Home() {
           <motion.div variants={fadeUp} className="mx-auto mt-7 flex max-w-[500px] items-center gap-3 rounded-2xl bg-white p-3 shadow-[0_14px_36px_rgba(15,23,42,0.05)] ring-1 ring-black/5">
             <div className="flex min-w-0 flex-1 items-center gap-2 rounded-xl border border-[#eef1ef] bg-[#fbfcfb] px-4 py-3">
               <Search className="h-4 w-4 text-[#9aa5af]" />
-              <input type="text" placeholder="Search course..." className="w-full border-0 bg-transparent text-sm text-[#1f2937] outline-none placeholder:text-[#a4adb5]" />
+              <input
+                type="text"
+                value={searchValue}
+                onChange={(event) => setSearchValue(event.target.value)}
+                placeholder="Search course..."
+                className="w-full border-0 bg-transparent text-sm text-[#1f2937] outline-none placeholder:text-[#a4adb5]"
+              />
             </div>
             <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="rounded-xl bg-[#152a3c] px-5 py-3 text-sm font-semibold text-white transition-shadow hover:shadow-lg">
               Search
@@ -380,7 +463,7 @@ export default function Home() {
           </motion.div>
 
           <motion.div variants={stagger} className="mx-auto mt-10 grid max-w-[1240px] gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {courses.map((course) => (
+            {filteredCourses.map((course) => (
               <CourseCard key={course.title} {...course} />
             ))}
           </motion.div>
@@ -399,12 +482,12 @@ export default function Home() {
               </motion.p>
               <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-10">
                 <div>
-                  <div className="text-4xl font-extrabold text-[#16202e]">10,000</div>
-                  <div className="mt-2 text-sm text-[#7d8793]">Daily Active Users</div>
+                  <div className="text-4xl font-extrabold text-[#16202e]">{stats.products.toLocaleString()}</div>
+                  <div className="mt-2 text-sm text-[#7d8793]">Products Imported</div>
                 </div>
                 <div>
-                  <div className="text-4xl font-extrabold text-[#16202e]">60%</div>
-                  <div className="mt-2 text-sm text-[#7d8793]">Course Enrollment Rate</div>
+                  <div className="text-4xl font-extrabold text-[#16202e]">{stats.customers.toLocaleString()}</div>
+                  <div className="mt-2 text-sm text-[#7d8793]">Customers Imported</div>
                 </div>
               </motion.div>
             </div>
