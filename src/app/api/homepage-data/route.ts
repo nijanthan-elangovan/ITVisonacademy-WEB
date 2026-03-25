@@ -12,6 +12,7 @@ type HomeCourse = {
   price: string;
   oldPrice: string;
   rating: string;
+  imageUrl: string | null;
 };
 
 type HomeFaq = {
@@ -60,17 +61,20 @@ export async function GET() {
         variants_count: string;
         min_price: string | null;
         max_compare_at_price: string | null;
+        featured_image_url: string | null;
       }>(
         `SELECT
            p.product_type,
            p.title,
            p.vendor,
+           p.featured_image_url,
            COUNT(v.variant_id)::text AS variants_count,
            MIN(v.price)::text AS min_price,
            MAX(v.compare_at_price)::text AS max_compare_at_price
          FROM products p
          LEFT JOIN product_variants v ON v.product_id = p.product_id
-         GROUP BY p.product_id, p.product_type, p.title, p.vendor, p.updated_at_shopify, p.migrated_at
+         WHERE p.status = 'ACTIVE'
+         GROUP BY p.product_id, p.product_type, p.title, p.vendor, p.featured_image_url, p.updated_at_shopify, p.migrated_at
          ORDER BY p.updated_at_shopify DESC NULLS LAST, p.migrated_at DESC
          LIMIT 6`,
       ),
@@ -103,13 +107,14 @@ export async function GET() {
             : null;
 
       return {
-        category: (row.product_type ?? "PRODUCT").toUpperCase(),
+        category: (row.product_type || "COURSE").toUpperCase(),
         title: row.title,
-        author: row.vendor ?? "Shopify",
+        author: row.vendor ?? "ITVision360",
         lessons: `${row.variants_count} Variant${row.variants_count === "1" ? "" : "s"}`,
         price: formatMoney(minPrice),
         oldPrice: formatMoney(oldPrice),
-        rating: "Imported",
+        rating: "5.0",
+        imageUrl: row.featured_image_url ?? null,
       };
     });
 

@@ -54,6 +54,7 @@ type CourseCardModel = {
   price: string;
   oldPrice: string;
   rating: string;
+  imageUrl?: string | null;
 };
 
 type FaqModel = {
@@ -102,8 +103,8 @@ const features = [
 ];
 
 const skillTags = [
-  "Graphic Design", "IT Software", "UI/UX Design", "Development",
-  "Data Science", "Photography", "Personal Development", "Marketing",
+  "SQL & Databases", "Cybersecurity", "Microsoft Azure", "Python",
+  "Power BI", "Data Science", "Full Stack Development", "Qlik Sense",
 ];
 
 const fallbackCourses: CourseCardModel[] = [
@@ -175,25 +176,40 @@ function PhoneMockup({ compact = false }: { compact?: boolean }) {
   );
 }
 
-function CourseCard({ category, title, author, lessons, price, oldPrice, rating }: CourseCardModel) {
+function CourseCard({ category, title, author, lessons, price, oldPrice, rating, imageUrl }: CourseCardModel) {
   return (
     <motion.article
       variants={fadeUp}
       whileHover={{ y: -6, transition: { duration: 0.25 } }}
-      className="cursor-pointer rounded-[1.45rem] bg-white p-5 shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]"
+      className="group cursor-pointer overflow-hidden rounded-[1.45rem] bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]"
     >
-      <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#a0aab5]">{category}</p>
-      <h3 className="mt-3 text-[1.02rem] font-bold leading-6 text-[#1c2635]">{title}</h3>
-      <div className="mt-4 flex items-center justify-between text-xs text-[#7f8b97]">
-        <span>{author}</span><span>{lessons}</span>
-      </div>
-      <div className="mt-5 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-bold text-[#2ca9df]">{price}</span>
-          <span className="text-xs text-[#b6bfc8] line-through">{oldPrice}</span>
+      {imageUrl && (
+        <div className="relative h-44 w-full overflow-hidden bg-[#f0f4f8]">
+          <Image
+            src={imageUrl}
+            alt={title}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
         </div>
-        <div className="flex items-center gap-1 text-xs font-semibold text-[#f59e0b]">
-          <Star className="h-3.5 w-3.5 fill-current" /><span>{rating}</span>
+      )}
+      <div className="p-5">
+        <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#a0aab5]">{category}</p>
+        <h3 className="mt-3 text-[1.02rem] font-bold leading-6 text-[#1c2635]">{title}</h3>
+        <div className="mt-4 flex items-center justify-between text-xs text-[#7f8b97]">
+          <span>{author}</span><span>{lessons}</span>
+        </div>
+        <div className="mt-5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-bold text-[#2ca9df]">{price}</span>
+            {oldPrice && oldPrice !== price && (
+              <span className="text-xs text-[#b6bfc8] line-through">{oldPrice}</span>
+            )}
+          </div>
+          <div className="flex items-center gap-1 text-xs font-semibold text-[#f59e0b]">
+            <Star className="h-3.5 w-3.5 fill-current" /><span>{rating}</span>
+          </div>
         </div>
       </div>
     </motion.article>
