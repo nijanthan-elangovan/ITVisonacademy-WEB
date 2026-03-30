@@ -45,10 +45,10 @@ export default function AboutPage() {
         <div className="mx-auto max-w-[1240px] text-center">
           <motion.div variants={fadeUp}><SectionEyebrow>About Us</SectionEyebrow></motion.div>
           <motion.h1 variants={fadeUp} className="mx-auto mt-4 max-w-[700px] text-3xl font-extrabold leading-[1.08] tracking-[-0.04em] sm:mt-5 sm:text-4xl md:text-5xl lg:text-[3.5rem]">
-            Aiming to get 100,000 people job ready in 10 years
+            Helping 100,000 people become job-ready in 10 years
           </motion.h1>
           <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-[600px] text-sm leading-7 text-white/80 sm:mt-6 sm:text-base">
-            At ITVision Academy, our team of skilled teachers are dedicated to giving you a dynamic and immersive learning experience. Our mission is to get you trained, certified and ready to land the tech job of your dreams.
+            At ITVision Academy, our instructors deliver practical, mentor-led training designed to help you build confidence, gain certification, and move into high-demand tech roles.
           </motion.p>
         </div>
       </motion.section>

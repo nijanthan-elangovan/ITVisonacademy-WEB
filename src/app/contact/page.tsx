@@ -32,10 +32,10 @@ export default function ContactPage() {
         <div className="mx-auto max-w-[1240px] text-center">
           <motion.div variants={fadeUp}><SectionEyebrow>Contact Us</SectionEyebrow></motion.div>
           <motion.h1 variants={fadeUp} className="mx-auto mt-4 max-w-[600px] text-3xl font-extrabold leading-[1.08] tracking-[-0.04em] sm:mt-5 sm:text-4xl md:text-5xl lg:text-[3.5rem]">
-            Get in touch with us
+            Talk to our admissions team
           </motion.h1>
           <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-[500px] text-sm leading-7 text-white/80 sm:mt-5 sm:text-base">
-            Have questions about classes, course payment, or enrollment? We would love to hear from you.
+            Have questions about class schedules, pricing, or enrollment? We&apos;re here to help.
           </motion.p>
         </div>
       </motion.section>

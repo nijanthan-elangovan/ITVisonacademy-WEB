@@ -36,7 +36,7 @@ const fallbackCourses: Course[] = [
 
 const categories = ["All", "Database", "Data Analytics", "Cloud", "Security", "Development"];
 
-const companyLogos = ["Microsoft", "Google", "Amazon", "Meta", "Apple", "IBM", "Oracle", "Salesforce", "Deloitte", "Accenture", "TCS", "Infosys", "Wipro", "Cognizant"];
+const companyLogos = ["SQL Server", "Azure", "Power BI", "Tableau", "Qlik Sense", "Python", "Cybersecurity", "Full Stack"];
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState<Course[]>(fallbackCourses);
@@ -93,7 +93,7 @@ export default function CoursesPage() {
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger} className="px-5 py-6 sm:px-10 sm:py-8 lg:px-12">
         <div className="mx-auto max-w-[1240px] text-center">
           <motion.p variants={fadeUp} className="text-sm font-medium text-[#74808b]">
-            Don&apos;t just take our word for it — our graduates work at
+            Train on the technologies used in modern data and cloud teams
           </motion.p>
           <motion.div variants={stagger} className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:mt-6 sm:gap-x-6 sm:gap-y-3">
             {companyLogos.map((logo, i) => (
@@ -171,7 +171,7 @@ export default function CoursesPage() {
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger} className="px-5 pb-3 pt-2 sm:px-10 lg:px-12">
         <div className="mx-auto max-w-[1240px] overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#2ca9df_0%,#2492d7_45%,#203b77_100%)] px-5 py-8 text-center text-white sm:rounded-[1.55rem] sm:px-10 sm:py-12">
           <motion.h2 variants={fadeUp} className="mx-auto max-w-[500px] text-2xl font-extrabold leading-tight tracking-[-0.04em] sm:text-3xl md:text-[2.5rem]">
-            Enroll in two courses and get the third one FREE
+            Bundle Offer: Enroll in two courses and get the third one free
           </motion.h2>
           <motion.p variants={fadeUp} className="mx-auto mt-3 max-w-[420px] text-sm leading-7 text-white/80 sm:mt-4">
             Three courses for $1,000 (normally $1,497). Bundle and save on your path to a tech career.

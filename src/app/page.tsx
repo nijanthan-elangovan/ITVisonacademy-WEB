@@ -45,7 +45,7 @@ type HomeDataResponse = {
   stats?: { products: number; customers: number };
 };
 
-const fallbackPartners = ["Shopify", "Collections", "Catalog"];
+const fallbackPartners = ["SQL & Databases", "Data Analytics", "Cloud & Azure", "Cybersecurity"];
 
 const features = [
   {
@@ -99,12 +99,12 @@ const fallbackCourses: CourseCardModel[] = [
 ];
 
 const fallbackFaqs: FaqModel[] = [
-  { question: "Is my personal information safe on the app?", answer: "Yes. We use secure account handling, encrypted form flows, and privacy-aware storage practices to protect personal information." },
-  { question: "What types of courses are available?", answer: "You can access SQL, cybersecurity, cloud, data analytics, and full-stack development courses, along with short skills-based programs." },
-  { question: "Are certificates provided upon course completion?", answer: "Yes. All programs include completion certificates and guided paths that support career-ready portfolio work." },
-  { question: "Can I interact with instructors and other learners?", answer: "Yes. Course spaces support mentor feedback, discussion areas, and collaborative learning touchpoints." },
-  { question: "How do I track my progress in a course?", answer: "Each course includes lesson completion states, progress summaries, and quick access to unfinished sessions." },
-  { question: "Can I access courses on multiple devices?", answer: "Yes. The experience is designed to continue across desktop, tablet, and mobile layouts." },
+  { question: "Do I need prior IT experience to enroll?", answer: "No. We offer beginner-friendly paths and guide you step-by-step. For advanced tracks, we share prerequisites before enrollment." },
+  { question: "How are classes delivered?", answer: "Classes are live, instructor-led sessions with practical exercises, assignments, and mentor support." },
+  { question: "How long is each course?", answer: "Most programs are delivered as a 12-session format over approximately one month." },
+  { question: "Do you provide certificates?", answer: "Yes. Learners receive a completion certificate after meeting course requirements." },
+  { question: "Do you offer bundled pricing?", answer: "Yes. Selected bundles are available, including the current 2+1 offer shown on our course pages." },
+  { question: "How can I choose the right course?", answer: "Use the contact form and our team will recommend a track based on your background and career goal." },
 ];
 
 /* ── components ── */
@@ -160,7 +160,9 @@ export default function Home() {
         if (!payload.ok || cancelled) return;
         if (payload.partners?.length) setPartners(payload.partners);
         if (payload.courses?.length) setCourses(payload.courses);
-        if (payload.faqs?.length) setFaqs(payload.faqs);
+        if (payload.faqs?.length && payload.faqs.some((f) => f.question.includes("?"))) {
+          setFaqs(payload.faqs);
+        }
         if (payload.stats) setStats(payload.stats);
       } catch { /* keep fallback */ }
     };
@@ -245,8 +247,8 @@ export default function Home() {
 
       {/* ── Partners ── */}
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger} className="px-5 py-6 sm:px-10 sm:py-7 lg:px-12">
-        <div className="mx-auto grid max-w-[1240px] items-center gap-4 border-b border-[#edf0ee] pb-6 text-center sm:grid-cols-4 sm:text-left">
-          <motion.div variants={fadeUp} className="text-xs text-[#96a0aa]">More than 60+ companies trusted us</motion.div>
+        <div className="mx-auto grid max-w-[1240px] items-center gap-4 border-b border-[#edf0ee] pb-6 text-center sm:grid-cols-5 sm:text-left">
+          <motion.div variants={fadeUp} className="text-xs text-[#96a0aa]">Popular learning tracks at ITVision Academy</motion.div>
           {partners.map((partner, i) => (
             <motion.div key={partner} variants={fadeUp} custom={i + 1} className="text-base font-semibold tracking-tight text-[#afb6bb] sm:text-lg">{partner}</motion.div>
           ))}
@@ -362,11 +364,11 @@ export default function Home() {
             <motion.div variants={fadeUp} className="mt-6 flex flex-wrap gap-8 sm:mt-8 sm:gap-10">
               <div>
                 <div className="text-3xl font-extrabold text-[#16202e] sm:text-4xl">{stats.products.toLocaleString()}</div>
-                <div className="mt-1 text-sm text-[#7d8793] sm:mt-2">Products Imported</div>
+                <div className="mt-1 text-sm text-[#7d8793] sm:mt-2">Courses in Catalog</div>
               </div>
               <div>
                 <div className="text-3xl font-extrabold text-[#16202e] sm:text-4xl">{stats.customers.toLocaleString()}</div>
-                <div className="mt-1 text-sm text-[#7d8793] sm:mt-2">Customers Imported</div>
+                <div className="mt-1 text-sm text-[#7d8793] sm:mt-2">Learner Records</div>
               </div>
             </motion.div>
           </div>

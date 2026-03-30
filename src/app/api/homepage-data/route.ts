@@ -48,12 +48,23 @@ export async function GET() {
 
   try {
     const [partnersResult, coursesResult, pagesResult, statsResult] = await Promise.all([
-      pool.query<{ title: string }>(
-        `SELECT title
-         FROM collections
-         WHERE title IS NOT NULL AND title <> ''
-         ORDER BY updated_at_shopify DESC NULLS LAST, migrated_at DESC
-         LIMIT 3`,
+      pool.query<{ name: string }>(
+        `SELECT DISTINCT
+           CASE
+             WHEN lower(coalesce(product_type, '')) LIKE '%database%' OR lower(coalesce(product_type, '')) LIKE '%sql%'
+               THEN 'SQL & Databases'
+             WHEN lower(coalesce(product_type, '')) LIKE '%data%'
+               THEN 'Data Analytics'
+             WHEN lower(coalesce(product_type, '')) LIKE '%cloud%' OR lower(coalesce(title, '')) LIKE '%azure%'
+               THEN 'Cloud & Azure'
+             WHEN lower(coalesce(product_type, '')) LIKE '%security%' OR lower(coalesce(title, '')) LIKE '%cyber%'
+               THEN 'Cybersecurity'
+             ELSE 'Career-Focused Tech Training'
+           END AS name
+         FROM products
+         WHERE status = 'ACTIVE'
+         ORDER BY name
+         LIMIT 4`,
       ),
       pool.query<{
         product_type: string | null;
@@ -98,7 +109,7 @@ export async function GET() {
       ),
     ]);
 
-    const partners = partnersResult.rows.map((row) => row.title).filter(Boolean);
+    const partners = partnersResult.rows.map((row) => row.name).filter(Boolean);
 
     const courses: HomeCourse[] = coursesResult.rows.map((row) => {
       const minPrice = row.min_price ? Number(row.min_price) : null;
@@ -114,7 +125,7 @@ export async function GET() {
         title: row.title,
         handle: row.handle ?? null,
         author: row.vendor ?? "ITVision Academy",
-        lessons: `${row.variants_count} Variant${row.variants_count === "1" ? "" : "s"}`,
+        lessons: "12 Sessions",
         price: formatMoney(minPrice),
         oldPrice: formatMoney(oldPrice),
         rating: "5.0",
