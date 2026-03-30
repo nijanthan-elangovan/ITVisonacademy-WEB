@@ -92,34 +92,15 @@ const organizationJsonLd = {
   description:
     "ITVision Academy provides live instructor-led tech courses to get you job-ready in SQL, Azure, Cybersecurity, Power BI, Tableau, and Full Stack Development.",
   email: "info@itvisionacademy.com",
-  telephone: "+1-737-332-2742",
+  telephone: "+1-214-727-2154",
   sameAs: ["https://www.linkedin.com/company/itvisionacademy/"],
-  address: [
-    {
-      "@type": "PostalAddress",
-      streetAddress: "3737 Mapleshade Ln",
-      addressLocality: "Plano",
-      addressRegion: "TX",
-      postalCode: "75075",
-      addressCountry: "US",
-    },
-    {
-      "@type": "PostalAddress",
-      streetAddress: "15000 Weston Parkway",
-      addressLocality: "Cary",
-      addressRegion: "NC",
-      postalCode: "27513",
-      addressCountry: "US",
-    },
-    {
-      "@type": "PostalAddress",
-      streetAddress: "950 Echo Lane, Suite 200-17",
-      addressLocality: "Houston",
-      addressRegion: "TX",
-      postalCode: "77024",
-      addressCountry: "US",
-    },
-  ],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "9300 John Hickman Parkway, #1104",
+    addressLocality: "Frisco",
+    addressRegion: "TX",
+    addressCountry: "US",
+  },
   foundingDate: "2023",
   numberOfEmployees: { "@type": "QuantitativeValue", value: "10-50" },
 };

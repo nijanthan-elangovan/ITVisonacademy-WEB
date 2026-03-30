@@ -15,10 +15,7 @@ import LeadForm from "@/components/LeadForm";
 import { fadeUp, stagger, scaleIn } from "@/components/animations";
 
 const offices = [
-  { city: "Plano, Texas (HQ)", address: "3737 Mapleshade Ln, Plano, TX 75075, USA", phone: "737-332-2742" },
-  { city: "Cary, North Carolina", address: "15000 Weston Parkway, Cary, NC 27513", phone: "(984) 326-8110" },
-  { city: "Houston, Texas", address: "950 Echo Lane, Suite 200-17, Houston, TX 77024", phone: "(737) 332-2742" },
-  { city: "Hyderabad, India", address: "133, Kavuri Hills Rd, CBI Colony, Madhapur, Hyderabad, Telangana 500033", phone: "" },
+  { city: "Frisco, Texas (HQ)", address: "9300 John Hickman Parkway, #1104, Frisco, TX", phone: "(214) 727-2154" },
 ];
 
 export default function ContactPage() {
@@ -56,7 +53,7 @@ export default function ContactPage() {
               <Phone className="h-5 w-5" />
             </div>
             <h3 className="mt-3 text-sm font-bold text-[#192231] sm:mt-4">Phone</h3>
-            <a href="tel:7373322742" className="mt-1 block text-sm text-[#2ca9df] hover:underline sm:mt-2">737-332-2742</a>
+            <a href="tel:12147272154" className="mt-1 block text-sm text-[#2ca9df] hover:underline sm:mt-2">(214) 727-2154</a>
           </motion.div>
 
           <motion.div variants={fadeUp} className="rounded-2xl bg-white p-5 text-center shadow-[0_14px_40px_rgba(15,23,42,0.05)] ring-1 ring-black/5 sm:p-6">
@@ -113,8 +110,8 @@ export default function ContactPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#18283a]/60 to-transparent" />
           <div className="absolute bottom-4 left-4 text-white sm:bottom-6 sm:left-8">
-            <p className="text-lg font-bold sm:text-xl">HQ — Plano, Texas</p>
-            <p className="text-xs text-white/70 sm:text-sm">3737 Mapleshade Ln, Plano, TX 75075</p>
+            <p className="text-lg font-bold sm:text-xl">HQ — Frisco, Texas</p>
+            <p className="text-xs text-white/70 sm:text-sm">9300 John Hickman Parkway, #1104, Frisco, TX</p>
           </div>
         </motion.div>
       </motion.section>

@@ -62,9 +62,18 @@ export default function Footer() {
         <motion.div variants={fadeUp}>
           <h3 className="text-sm font-semibold text-white">Courses</h3>
           <ul className="mt-4 space-y-3 text-sm text-white/55">
-            {["SQL Basic", "SQL Advanced", "Power BI", "Tableau", "Azure Data Factory", "Cybersecurity", "Azure Data Bricks"].map((c) => (
-              <li key={c}>
-                <Link href="/courses" className="transition-colors hover:text-white/80">{c}</Link>
+            {[
+              { label: "SQL Fundamentals", href: "/courses/sql-basic" },
+              { label: "SQL Advanced", href: "/courses/sql-advanced" },
+              { label: "Power BI", href: "/courses/power-bi" },
+              { label: "Tableau", href: "/courses/tableau" },
+              { label: "Azure Data Factory", href: "/courses/ms-azure" },
+              { label: "Cybersecurity", href: "/courses/cybersecurity" },
+              { label: "Azure Databricks", href: "/courses/data-bricks" },
+              { label: "Full Stack Dev", href: "/courses/full-stack" },
+            ].map((c) => (
+              <li key={c.href}>
+                <Link href={c.href} className="transition-colors hover:text-white/80">{c.label}</Link>
               </li>
             ))}
           </ul>
@@ -74,13 +83,13 @@ export default function Footer() {
           <ul className="mt-4 space-y-3 text-sm text-white/55">
             <li className="flex items-center gap-2">
               <Phone className="h-4 w-4 shrink-0" />
-              <a href="tel:7373322742" className="hover:text-white/80">737-332-2742</a>
+              <a href="tel:12147272154" className="hover:text-white/80">(214) 727-2154</a>
             </li>
             <li className="flex items-center gap-2">
               <Mail className="h-4 w-4 shrink-0" />
               <a href="mailto:info@itvisionacademy.com" className="hover:text-white/80">info@itvisionacademy.com</a>
             </li>
-            <li>3737 Mapleshade Ln<br />Plano, TX 75075, USA</li>
+            <li>9300 John Hickman Parkway, #1104<br />Frisco, TX</li>
           </ul>
         </motion.div>
       </div>

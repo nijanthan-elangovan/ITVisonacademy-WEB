@@ -36,7 +36,33 @@ const fallbackCourses: Course[] = [
 
 const categories = ["All", "Database", "Data Analytics", "Cloud", "Security", "Development"];
 
-const companyLogos = ["SQL Server", "Azure", "Power BI", "Tableau", "Qlik Sense", "Python", "Cybersecurity", "Full Stack"];
+function normalizeCourseCategory(title: string, rawCategory: string): string {
+  const src = `${title} ${rawCategory}`.toLowerCase();
+  if (src.includes("sql") || src.includes("database")) return "DATABASE";
+  if (src.includes("power bi") || src.includes("tableau") || src.includes("qlik") || src.includes("visualization") || src.includes("analytics")) return "DATA ANALYTICS";
+  if (src.includes("azure") || src.includes("cloud") || src.includes("databricks") || src.includes("data bricks")) return "CLOUD";
+  if (src.includes("cyber") || src.includes("security")) return "SECURITY";
+  if (src.includes("full stack") || src.includes("development") || src.includes("react") || src.includes("node")) return "DEVELOPMENT";
+  return rawCategory.toUpperCase();
+}
+
+function normalizeCourseHandle(title: string, handle: string | null): string | null {
+  const src = `${title} ${handle ?? ""}`.toLowerCase();
+  if (src.includes("+") || src.includes("bundle") || src.includes("discount")) return null;
+  if (src.includes("advanced database") || src.includes("sql advanced")) return "sql-advanced";
+  if (src.includes("database fundamentals") || src.includes("sql basic")) return "sql-basic";
+  if (src.includes("power bi")) return "power-bi";
+  if (src.includes("tableau")) return "tableau";
+  if (src.includes("azure data factory")) return "ms-azure";
+  if (src.includes("cybersecurity")) return "cybersecurity";
+  if (src.includes("qlik")) return "qlik-sense";
+  if (src.includes("data bricks") || src.includes("databricks")) return "data-bricks";
+  if (src.includes("full stack")) return "full-stack";
+  if (src.includes("microsoft azure")) return "ms-azure";
+  return null;
+}
+
+const companyLogos = ["Microsoft", "Google", "Amazon", "Deloitte", "Accenture", "IBM", "Oracle", "Cognizant", "TCS", "Infosys"];
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState<Course[]>(fallbackCourses);
@@ -49,7 +75,16 @@ export default function CoursesPage() {
         const response = await fetch("/api/homepage-data", { cache: "no-store" });
         if (!response.ok) return;
         const payload = await response.json();
-        if (payload.ok && payload.courses?.length > 0) setCourses(payload.courses);
+        if (payload.ok && payload.courses?.length > 0) {
+          const normalized = payload.courses
+            .map((c: Course) => ({
+              ...c,
+              category: normalizeCourseCategory(c.title, c.category),
+              handle: c.handle || normalizeCourseHandle(c.title, c.handle ?? null),
+            }))
+            .filter((c: Course) => c.handle);
+          if (normalized.length > 0) setCourses(normalized);
+        }
       } catch { /* keep fallback */ }
     };
     void loadCourses();
@@ -58,17 +93,15 @@ export default function CoursesPage() {
   const filteredCourses = courses.filter((course) => {
     const matchesSearch = course.title.toLowerCase().includes(searchValue.toLowerCase());
     if (activeCategory === "All") return matchesSearch;
-    const cat = course.category.toLowerCase();
-    const filter = activeCategory.toLowerCase();
-    const matchesCategory =
-      cat === filter ||
-      cat.includes(filter) ||
-      filter.includes(cat) ||
-      (filter === "database" && cat.includes("sql")) ||
-      (filter === "cloud" && (cat.includes("azure") || cat.includes("cloud"))) ||
-      (filter === "security" && (cat.includes("security") || cat.includes("cyber"))) ||
-      (filter === "data analytics" && (cat.includes("data") || cat.includes("analytics") || cat.includes("bi") || cat.includes("visualization")));
-    return matchesSearch && matchesCategory;
+    const normalized = normalizeCourseCategory(course.title, course.category);
+    const filterMap: Record<string, string> = {
+      "Database": "DATABASE",
+      "Data Analytics": "DATA ANALYTICS",
+      "Cloud": "CLOUD",
+      "Security": "SECURITY",
+      "Development": "DEVELOPMENT",
+    };
+    return matchesSearch && normalized === filterMap[activeCategory];
   });
 
   return (
@@ -93,7 +126,7 @@ export default function CoursesPage() {
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger} className="px-5 py-6 sm:px-10 sm:py-8 lg:px-12">
         <div className="mx-auto max-w-[1240px] text-center">
           <motion.p variants={fadeUp} className="text-sm font-medium text-[#74808b]">
-            Train on the technologies used in modern data and cloud teams
+            Our graduates work at leading companies worldwide
           </motion.p>
           <motion.div variants={stagger} className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:mt-6 sm:gap-x-6 sm:gap-y-3">
             {companyLogos.map((logo, i) => (

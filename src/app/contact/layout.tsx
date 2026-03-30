@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with ITVision Academy. Call 737-332-2742, email info@itvisionacademy.com, or visit our offices in Plano TX, Cary NC, Houston TX, and Hyderabad India.",
+    "Get in touch with ITVision Academy. Call (214) 727-2154, email info@itvisionacademy.com, or visit us at 9300 John Hickman Parkway, #1104, Frisco, TX.",
   alternates: { canonical: "/contact" },
   openGraph: {
     title: "Contact ITVision Academy",
     description:
-      "Call 737-332-2742 or email info@itvisionacademy.com. Offices in Texas, North Carolina & India.",
+      "Call (214) 727-2154 or email info@itvisionacademy.com. Visit us in Frisco, TX.",
     url: "/contact",
   },
 };

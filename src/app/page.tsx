@@ -30,6 +30,7 @@ type CourseCardModel = {
   oldPrice: string;
   rating: string;
   imageUrl?: string | null;
+  handle?: string | null;
 };
 
 type FaqModel = {
@@ -39,13 +40,12 @@ type FaqModel = {
 
 type HomeDataResponse = {
   ok: boolean;
-  partners?: string[];
   courses?: CourseCardModel[];
   faqs?: FaqModel[];
   stats?: { products: number; customers: number };
 };
 
-const fallbackPartners = ["SQL & Databases", "Data Analytics", "Cloud & Azure", "Cybersecurity"];
+const companyNames = ["Microsoft", "Google", "Amazon", "Deloitte", "Accenture", "IBM", "Oracle", "Cognizant"];
 
 const features = [
   {
@@ -90,12 +90,12 @@ const skillTags = [
 ];
 
 const fallbackCourses: CourseCardModel[] = [
-  { category: "DATABASE", title: "Database Fundamentals Using SQL Microsoft", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (120)" },
-  { category: "DATABASE", title: "Advanced Database Programming Microsoft SQL Server", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (98)" },
-  { category: "DATA ANALYTICS", title: "Data Analysis and Visualization Power BI", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (156)" },
-  { category: "CLOUD", title: "Azure Data Factory", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (87)" },
-  { category: "SECURITY", title: "Cybersecurity", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (203)" },
-  { category: "CLOUD", title: "Azure Data Bricks", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (74)" },
+  { category: "DATABASE", title: "Database Fundamentals Using SQL Microsoft", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (120)", handle: "sql-basic" },
+  { category: "DATABASE", title: "Advanced Database Programming Microsoft SQL Server", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (98)", handle: "sql-advanced" },
+  { category: "DATA ANALYTICS", title: "Data Analysis and Visualization Power BI", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (156)", handle: "power-bi" },
+  { category: "CLOUD", title: "Azure Data Factory", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (87)", handle: "ms-azure" },
+  { category: "SECURITY", title: "Cybersecurity", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (203)", handle: "cybersecurity" },
+  { category: "CLOUD", title: "Azure Data Bricks", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (74)", handle: "data-bricks" },
 ];
 
 const fallbackFaqs: FaqModel[] = [
@@ -109,9 +109,9 @@ const fallbackFaqs: FaqModel[] = [
 
 /* ── components ── */
 
-function CourseCard({ category, title, author, lessons, price, oldPrice, rating, imageUrl }: CourseCardModel) {
+function CourseCard({ category, title, author, lessons, price, oldPrice, rating, imageUrl, handle }: CourseCardModel) {
   const resolvedImage = imageUrl || "/images/course-default.svg";
-  return (
+  const card = (
     <motion.article
       variants={fadeUp}
       whileHover={{ y: -6, transition: { duration: 0.25 } }}
@@ -138,12 +138,13 @@ function CourseCard({ category, title, author, lessons, price, oldPrice, rating,
       </div>
     </motion.article>
   );
+  if (handle) return <Link href={`/courses/${handle}`}>{card}</Link>;
+  return card;
 }
 
 /* ── page ── */
 
 export default function Home() {
-  const [partners, setPartners] = useState(fallbackPartners);
   const [courses, setCourses] = useState<CourseCardModel[]>(fallbackCourses);
   const [faqs, setFaqs] = useState<FaqModel[]>(fallbackFaqs);
   const [stats, setStats] = useState({ products: 0, customers: 0 });
@@ -158,7 +159,6 @@ export default function Home() {
         if (!response.ok) return;
         const payload = (await response.json()) as HomeDataResponse;
         if (!payload.ok || cancelled) return;
-        if (payload.partners?.length) setPartners(payload.partners);
         if (payload.courses?.length) setCourses(payload.courses);
         if (payload.faqs?.length && payload.faqs.some((f) => f.question.includes("?"))) {
           setFaqs(payload.faqs);
@@ -231,9 +231,9 @@ export default function Home() {
             >
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
-                  <div className="h-8 w-8 rounded-full bg-[#2ca9df]" />
-                  <div className="h-8 w-8 rounded-full bg-[#f4c95d]" />
-                  <div className="h-8 w-8 rounded-full bg-[#203b77]" />
+                  <Image src="/images/avatar-1.svg" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white" />
+                  <Image src="/images/avatar-2.svg" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white" />
+                  <Image src="/images/avatar-3.svg" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white" />
                 </div>
                 <div>
                   <p className="text-xs font-bold text-[#1f2937]">2,500+ Students</p>
@@ -245,13 +245,15 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* ── Partners ── */}
+      {/* ── Trusted By ── */}
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger} className="px-5 py-6 sm:px-10 sm:py-7 lg:px-12">
-        <div className="mx-auto grid max-w-[1240px] items-center gap-4 border-b border-[#edf0ee] pb-6 text-center sm:grid-cols-5 sm:text-left">
-          <motion.div variants={fadeUp} className="text-xs text-[#96a0aa]">Popular learning tracks at ITVision Academy</motion.div>
-          {partners.map((partner, i) => (
-            <motion.div key={partner} variants={fadeUp} custom={i + 1} className="text-base font-semibold tracking-tight text-[#afb6bb] sm:text-lg">{partner}</motion.div>
-          ))}
+        <div className="mx-auto max-w-[1240px] border-b border-[#edf0ee] pb-6 text-center">
+          <motion.p variants={fadeUp} className="text-xs text-[#96a0aa]">Our graduates work at leading companies worldwide</motion.p>
+          <motion.div variants={stagger} className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:mt-5 sm:gap-x-8 sm:gap-y-3">
+            {companyNames.map((name, i) => (
+              <motion.span key={name} variants={fadeUp} custom={i} className="text-base font-bold tracking-tight text-[#c0c6cc] sm:text-lg">{name}</motion.span>
+            ))}
+          </motion.div>
         </div>
       </motion.section>
 
