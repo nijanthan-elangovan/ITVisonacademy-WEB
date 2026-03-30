@@ -106,7 +106,7 @@ export default function ContactPage() {
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger} className="px-5 pb-3 pt-2 sm:px-10 lg:px-12">
         <motion.div variants={scaleIn} className="relative mx-auto h-[200px] max-w-[1240px] overflow-hidden rounded-2xl sm:h-[300px]">
           <Image
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80&auto=format&fit=crop"
+            src="/images/contact-office.svg"
             alt="Modern office space"
             fill className="object-cover"
             sizes="100vw"

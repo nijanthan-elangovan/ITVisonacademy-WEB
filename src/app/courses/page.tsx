@@ -132,11 +132,9 @@ export default function CoursesPage() {
               <Link href={`/courses/${course.handle || "course"}`}>
                 <motion.article whileHover={{ y: -6, transition: { duration: 0.25 } }}
                   className="group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]">
-                  {course.imageUrl && (
-                    <div className="relative h-40 w-full overflow-hidden bg-[#f0f4f8] sm:h-44">
-                      <Image src={course.imageUrl} alt={course.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
-                    </div>
-                  )}
+                  <div className="relative h-40 w-full overflow-hidden bg-[#f0f4f8] sm:h-44">
+                    <Image src={course.imageUrl || "/images/course-default.svg"} alt={course.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                  </div>
                   <div className="p-4 sm:p-5">
                     <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#a0aab5]">{course.category}</p>
                     <h3 className="mt-2 text-[0.95rem] font-bold leading-snug text-[#1c2635] sm:mt-3 sm:text-[1.02rem] sm:leading-6">{course.title}</h3>

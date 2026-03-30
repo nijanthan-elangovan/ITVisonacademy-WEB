@@ -110,17 +110,16 @@ const fallbackFaqs: FaqModel[] = [
 /* ── components ── */
 
 function CourseCard({ category, title, author, lessons, price, oldPrice, rating, imageUrl }: CourseCardModel) {
+  const resolvedImage = imageUrl || "/images/course-default.svg";
   return (
     <motion.article
       variants={fadeUp}
       whileHover={{ y: -6, transition: { duration: 0.25 } }}
       className="group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]"
     >
-      {imageUrl && (
-        <div className="relative h-40 w-full overflow-hidden bg-[#f0f4f8] sm:h-44">
-          <Image src={imageUrl} alt={title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
-        </div>
-      )}
+      <div className="relative h-40 w-full overflow-hidden bg-[#f0f4f8] sm:h-44">
+        <Image src={resolvedImage} alt={title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+      </div>
       <div className="p-4 sm:p-5">
         <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#a0aab5]">{category}</p>
         <h3 className="mt-2 text-[0.95rem] font-bold leading-snug text-[#1c2635] sm:mt-3 sm:text-[1.02rem] sm:leading-6">{title}</h3>
@@ -149,6 +148,7 @@ export default function Home() {
   const [faqs, setFaqs] = useState<FaqModel[]>(fallbackFaqs);
   const [stats, setStats] = useState({ products: 0, customers: 0 });
   const [searchValue, setSearchValue] = useState("");
+  const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -212,7 +212,7 @@ export default function Home() {
             <div className="absolute -right-4 -top-4 hidden h-56 w-56 rounded-full bg-[#79d3f7]/20 blur-3xl sm:block" />
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_30px_80px_rgba(9,20,32,0.35)] sm:rounded-3xl">
               <Image
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80&auto=format&fit=crop"
+                src="/images/hero-collaboration.svg"
                 alt="Students collaborating on tech projects"
                 fill
                 className="object-cover"
@@ -284,7 +284,7 @@ export default function Home() {
           <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
             <motion.div variants={scaleIn} className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80&auto=format&fit=crop"
+                src="/images/team-learning.svg"
                 alt="Team collaborating on data projects"
                 fill
                 className="object-cover"
@@ -372,7 +372,7 @@ export default function Home() {
           </div>
           <motion.div variants={scaleIn} className="relative aspect-[4/3] min-h-[240px] overflow-hidden rounded-2xl sm:min-h-[320px]">
             <Image
-              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80&auto=format&fit=crop"
+              src="/images/student-success.svg"
               alt="Students celebrating success"
               fill
               className="object-cover"
@@ -399,19 +399,28 @@ export default function Home() {
         </div>
         <div className="mx-auto mt-8 max-w-[860px] space-y-3 sm:mt-10">
           {faqs.map((faq, index) => (
-            <motion.details key={faq.question} variants={fadeUp} custom={index} className="group overflow-hidden rounded-2xl bg-white px-4 py-1 shadow-[0_12px_30px_rgba(15,23,42,0.04)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_16px_36px_rgba(15,23,42,0.08)] sm:px-5" open={index === 0}>
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-4 text-left text-sm font-semibold text-[#1f2937] marker:hidden sm:gap-4 sm:py-5">
-                {faq.question}
-                <ChevronDown className="h-4 w-4 shrink-0 text-[#7f8b97] transition-transform duration-300 group-open:rotate-180" />
-              </summary>
-              <p className="pb-4 text-sm leading-7 text-[#74808b] sm:pb-5">{faq.answer}</p>
-            </motion.details>
+            <motion.div key={faq.question} variants={fadeUp} custom={index}>
+              <div className="overflow-hidden rounded-2xl bg-white px-4 py-1 shadow-[0_12px_30px_rgba(15,23,42,0.04)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_16px_36px_rgba(15,23,42,0.08)] sm:px-5">
+                <button
+                  type="button"
+                  onClick={() => setOpenFaqIndex((prev) => (prev === index ? -1 : index))}
+                  className="flex w-full cursor-pointer list-none items-center justify-between gap-3 py-4 text-left text-sm font-semibold text-[#1f2937] marker:hidden sm:gap-4 sm:py-5"
+                  aria-expanded={openFaqIndex === index}
+                >
+                  {faq.question}
+                  <ChevronDown className={`h-4 w-4 shrink-0 text-[#7f8b97] transition-transform duration-300 ${openFaqIndex === index ? "rotate-180" : ""}`} />
+                </button>
+                {openFaqIndex === index && (
+                  <p className="pb-4 text-sm leading-7 text-[#74808b] sm:pb-5">{faq.answer}</p>
+                )}
+              </div>
+            </motion.div>
           ))}
         </div>
         <motion.div variants={fadeUp} className="mt-6 flex flex-col justify-center gap-3 sm:mt-8 sm:flex-row">
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-            <Link href="/courses" className="block rounded-xl border border-[#d7dde2] bg-white px-5 py-3 text-center text-sm font-medium text-[#334155] transition-shadow hover:shadow-md">
-              See more FAQs
+            <Link href="/contact" className="block rounded-xl border border-[#d7dde2] bg-white px-5 py-3 text-center text-sm font-medium text-[#334155] transition-shadow hover:shadow-md">
+              Ask a Question
             </Link>
           </motion.div>
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
@@ -448,7 +457,7 @@ export default function Home() {
             </div>
             <motion.div variants={scaleIn} className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_30px_80px_rgba(9,20,32,0.3)]">
               <Image
-                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80&auto=format&fit=crop"
+                src="/images/laptop-study.svg"
                 alt="Student working on laptop"
                 fill
                 className="object-cover"

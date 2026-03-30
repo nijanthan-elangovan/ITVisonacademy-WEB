@@ -29,7 +29,7 @@ const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     author: "ITVision Academy",
     category: "Career Tips",
-    image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=600&q=80&auto=format&fit=crop",
+    image: "/images/blog-tech-1.svg",
   },
   {
     slug: "getting-started-with-azure-data-factory",
@@ -39,7 +39,7 @@ const blogPosts: BlogPost[] = [
     readTime: "7 min read",
     author: "ITVision Academy",
     category: "Cloud",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80&auto=format&fit=crop",
+    image: "/images/blog-tech-2.svg",
   },
   {
     slug: "power-bi-vs-tableau",
@@ -49,7 +49,7 @@ const blogPosts: BlogPost[] = [
     readTime: "6 min read",
     author: "ITVision Academy",
     category: "Data Analytics",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format&fit=crop",
+    image: "/images/blog-tech-3.svg",
   },
   {
     slug: "cybersecurity-career-path",
@@ -59,7 +59,7 @@ const blogPosts: BlogPost[] = [
     readTime: "8 min read",
     author: "ITVision Academy",
     category: "Cybersecurity",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=600&q=80&auto=format&fit=crop",
+    image: "/images/blog-tech-1.svg",
   },
   {
     slug: "top-5-skills-for-full-stack-developers",
@@ -69,7 +69,7 @@ const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     author: "ITVision Academy",
     category: "Development",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80&auto=format&fit=crop",
+    image: "/images/blog-tech-2.svg",
   },
   {
     slug: "from-zero-to-data-analyst",
@@ -79,7 +79,7 @@ const blogPosts: BlogPost[] = [
     readTime: "10 min read",
     author: "ITVision Academy",
     category: "Career Tips",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80&auto=format&fit=crop",
+    image: "/images/blog-tech-3.svg",
   },
 ];
 
@@ -135,25 +135,30 @@ export default function BlogPage() {
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger} className="px-5 py-6 sm:px-10 sm:py-10 lg:px-12">
         <div className="mx-auto grid max-w-[1240px] gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
           {blogPosts.slice(1).map((post, i) => (
-            <motion.article key={post.slug} variants={fadeUp} custom={i}
-              whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className="group flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]">
-              <div className="relative h-40 overflow-hidden sm:h-44">
-                <Image src={post.image} alt={post.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
-              </div>
-              <div className="flex flex-1 flex-col p-4 sm:p-5">
-                <span className="w-fit rounded-full bg-[#ecf7fd] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#2ca9df]">{post.category}</span>
-                <h3 className="mt-2 text-[0.95rem] font-bold leading-snug text-[#1c2635] sm:mt-3 sm:text-[1.05rem]">{post.title}</h3>
-                <p className="mt-2 flex-1 text-sm leading-6 text-[#74808b] sm:mt-3">{post.excerpt}</p>
-                <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-[#96a0aa] sm:mt-4">
-                  <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {post.date}</span>
-                  <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {post.readTime}</span>
-                </div>
-                <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-[#2ca9df] opacity-0 transition-opacity group-hover:opacity-100">
-                  Read More <ArrowRight className="h-3 w-3" />
-                </div>
-              </div>
-            </motion.article>
+            <motion.div key={post.slug} variants={fadeUp} custom={i}>
+              <Link href={`/blog/${post.slug}`}>
+                <motion.article
+                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                  className="group flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]"
+                >
+                  <div className="relative h-40 overflow-hidden sm:h-44">
+                    <Image src={post.image} alt={post.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                  </div>
+                  <div className="flex flex-1 flex-col p-4 sm:p-5">
+                    <span className="w-fit rounded-full bg-[#ecf7fd] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#2ca9df]">{post.category}</span>
+                    <h3 className="mt-2 text-[0.95rem] font-bold leading-snug text-[#1c2635] sm:mt-3 sm:text-[1.05rem]">{post.title}</h3>
+                    <p className="mt-2 flex-1 text-sm leading-6 text-[#74808b] sm:mt-3">{post.excerpt}</p>
+                    <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-[#96a0aa] sm:mt-4">
+                      <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {post.date}</span>
+                      <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {post.readTime}</span>
+                    </div>
+                    <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-[#2ca9df] opacity-0 transition-opacity group-hover:opacity-100">
+                      Read More <ArrowRight className="h-3 w-3" />
+                    </div>
+                  </div>
+                </motion.article>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </motion.section>

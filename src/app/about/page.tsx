@@ -82,7 +82,7 @@ export default function AboutPage() {
           </div>
           <motion.div variants={scaleIn} className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(15,23,42,0.15)]">
             <Image
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80&auto=format&fit=crop"
+              src="/images/about-team.svg"
               alt="Diverse team collaborating on tech projects"
               fill className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -175,7 +175,7 @@ export default function AboutPage() {
             </div>
             <motion.div variants={scaleIn} className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_30px_80px_rgba(9,20,32,0.3)]">
               <Image
-                src="https://images.unsplash.com/photo-1560472355-536de3962603?w=800&q=80&auto=format&fit=crop"
+                src="/images/classroom.svg"
                 alt="Students in a classroom"
                 fill className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"

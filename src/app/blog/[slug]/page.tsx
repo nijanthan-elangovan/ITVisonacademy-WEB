@@ -28,7 +28,7 @@ const articles: Record<string, Article> = {
     readTime: "5 min read",
     author: "ITVision Academy",
     category: "Career Tips",
-    image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=1200&q=80&auto=format&fit=crop",
+    image: "/images/blog-tech-1.svg",
     content: [
       "In 2025, SQL continues to dominate as the most requested skill in data job postings. Whether you're aiming to become a data analyst, data engineer, or data scientist, SQL is the foundational language you need to master.",
       "SQL (Structured Query Language) is the standard language for interacting with relational databases. It allows you to query, manipulate, and manage data stored in systems like Microsoft SQL Server, PostgreSQL, MySQL, and Oracle. Every major company — from startups to Fortune 500 corporations — relies on relational databases, making SQL an indispensable skill.",
@@ -45,7 +45,7 @@ const articles: Record<string, Article> = {
     readTime: "7 min read",
     author: "ITVision Academy",
     category: "Cloud",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80&auto=format&fit=crop",
+    image: "/images/blog-tech-2.svg",
     content: [
       "Azure Data Factory (ADF) is Microsoft's cloud-based ETL (Extract, Transform, Load) service that allows you to create data-driven workflows for orchestrating data movement and transforming data at scale. If you're looking to break into cloud data engineering, ADF is one of the most important tools to learn.",
       "At its core, ADF lets you create pipelines that move data between different data stores — whether that's Azure Blob Storage, SQL databases, on-premises servers, or third-party services like Salesforce and SAP. You can schedule these pipelines, monitor their execution, and handle errors gracefully.",
