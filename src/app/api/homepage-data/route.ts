@@ -13,6 +13,7 @@ type HomeCourse = {
   oldPrice: string;
   rating: string;
   imageUrl: string | null;
+  handle: string | null;
 };
 
 type HomeFaq = {
@@ -57,6 +58,7 @@ export async function GET() {
       pool.query<{
         product_type: string | null;
         title: string;
+        handle: string | null;
         vendor: string | null;
         variants_count: string;
         min_price: string | null;
@@ -66,6 +68,7 @@ export async function GET() {
         `SELECT
            p.product_type,
            p.title,
+           p.handle,
            p.vendor,
            p.featured_image_url,
            COUNT(v.variant_id)::text AS variants_count,
@@ -74,7 +77,7 @@ export async function GET() {
          FROM products p
          LEFT JOIN product_variants v ON v.product_id = p.product_id
          WHERE p.status = 'ACTIVE'
-         GROUP BY p.product_id, p.product_type, p.title, p.vendor, p.featured_image_url, p.updated_at_shopify, p.migrated_at
+         GROUP BY p.product_id, p.product_type, p.title, p.handle, p.vendor, p.featured_image_url, p.updated_at_shopify, p.migrated_at
          ORDER BY p.updated_at_shopify DESC NULLS LAST, p.migrated_at DESC
          LIMIT 6`,
       ),
@@ -109,7 +112,8 @@ export async function GET() {
       return {
         category: (row.product_type || "COURSE").toUpperCase(),
         title: row.title,
-        author: row.vendor ?? "ITVision360",
+        handle: row.handle ?? null,
+        author: row.vendor ?? "ITVision Academy",
         lessons: `${row.variants_count} Variant${row.variants_count === "1" ? "" : "s"}`,
         price: formatMoney(minPrice),
         oldPrice: formatMoney(oldPrice),

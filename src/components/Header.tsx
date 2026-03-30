@@ -67,10 +67,11 @@ export default function Header() {
           <Image
             src="/logo.png"
             alt="ITVision Academy"
-            width={120}
-            height={32}
+            width={160}
+            height={42}
             priority
-            className="sm:h-[34px] sm:w-[132px]"
+            style={{ width: "auto", height: "auto" }}
+            className="max-h-[36px] w-auto sm:max-h-[42px]"
           />
         </Link>
         <nav className="hidden items-center gap-6 text-[13px] font-medium text-[#4a5563] lg:flex">

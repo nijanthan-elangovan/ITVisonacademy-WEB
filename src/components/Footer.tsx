@@ -21,9 +21,10 @@ export default function Footer() {
           <Image
             src="/logo.png"
             alt="ITVision Academy"
-            width={144}
-            height={38}
-            className="brightness-0 invert"
+            width={170}
+            height={44}
+            style={{ width: "auto", height: "auto" }}
+            className="max-h-[40px] w-auto brightness-0 invert sm:max-h-[44px]"
           />
           <p className="mt-4 max-w-[280px] text-sm leading-7 text-white/55">
             Empowering the next generation of tech professionals with practical,

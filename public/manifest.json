@@ -1,0 +1,16 @@
+{
+  "name": "ITVision Academy",
+  "short_name": "ITVision",
+  "description": "Get job-ready with world-class tech courses in SQL, Azure, Cybersecurity, Power BI, and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#e7ecea",
+  "theme_color": "#2ca9df",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

@@ -57,7 +57,17 @@ export default function CoursesPage() {
 
   const filteredCourses = courses.filter((course) => {
     const matchesSearch = course.title.toLowerCase().includes(searchValue.toLowerCase());
-    const matchesCategory = activeCategory === "All" || course.category.toLowerCase() === activeCategory.toLowerCase();
+    if (activeCategory === "All") return matchesSearch;
+    const cat = course.category.toLowerCase();
+    const filter = activeCategory.toLowerCase();
+    const matchesCategory =
+      cat === filter ||
+      cat.includes(filter) ||
+      filter.includes(cat) ||
+      (filter === "database" && cat.includes("sql")) ||
+      (filter === "cloud" && (cat.includes("azure") || cat.includes("cloud"))) ||
+      (filter === "security" && (cat.includes("security") || cat.includes("cyber"))) ||
+      (filter === "data analytics" && (cat.includes("data") || cat.includes("analytics") || cat.includes("bi") || cat.includes("visualization")));
     return matchesSearch && matchesCategory;
   });
 
