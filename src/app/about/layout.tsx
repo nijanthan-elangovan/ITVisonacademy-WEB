@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "ITVision Academy is on a mission to get 100,000 people job-ready in 10 years. Learn about our inclusive, hands-on approach to tech education with offices in Texas, North Carolina, and India.",
+    "ITVision Academy is on a mission to get 100,000 people job-ready in 10 years. Practical, mentor-led tech training based in Frisco, Texas.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About ITVision Academy",

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Search, Star, ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -18,11 +18,10 @@ type Course = {
   price: string;
   oldPrice: string;
   rating: string;
-  imageUrl?: string | null;
-  handle?: string;
+  handle: string;
 };
 
-const fallbackCourses: Course[] = [
+const allCourses: Course[] = [
   { category: "DATABASE", title: "Database Fundamentals Using SQL Microsoft", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (120)", handle: "sql-basic" },
   { category: "DATABASE", title: "Advanced Database Programming Microsoft SQL Server", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (98)", handle: "sql-advanced" },
   { category: "DATA ANALYTICS", title: "Data Analysis and Visualization Power BI", author: "ITVision Academy", lessons: "12 Sessions", price: "$499.00", oldPrice: "$599.00", rating: "5.0 (156)", handle: "power-bi" },
@@ -36,72 +35,24 @@ const fallbackCourses: Course[] = [
 
 const categories = ["All", "Database", "Data Analytics", "Cloud", "Security", "Development"];
 
-function normalizeCourseCategory(title: string, rawCategory: string): string {
-  const src = `${title} ${rawCategory}`.toLowerCase();
-  if (src.includes("sql") || src.includes("database")) return "DATABASE";
-  if (src.includes("power bi") || src.includes("tableau") || src.includes("qlik") || src.includes("visualization") || src.includes("analytics")) return "DATA ANALYTICS";
-  if (src.includes("azure") || src.includes("cloud") || src.includes("databricks") || src.includes("data bricks")) return "CLOUD";
-  if (src.includes("cyber") || src.includes("security")) return "SECURITY";
-  if (src.includes("full stack") || src.includes("development") || src.includes("react") || src.includes("node")) return "DEVELOPMENT";
-  return rawCategory.toUpperCase();
-}
-
-function normalizeCourseHandle(title: string, handle: string | null): string | null {
-  const src = `${title} ${handle ?? ""}`.toLowerCase();
-  if (src.includes("+") || src.includes("bundle") || src.includes("discount")) return null;
-  if (src.includes("advanced database") || src.includes("sql advanced")) return "sql-advanced";
-  if (src.includes("database fundamentals") || src.includes("sql basic")) return "sql-basic";
-  if (src.includes("power bi")) return "power-bi";
-  if (src.includes("tableau")) return "tableau";
-  if (src.includes("azure data factory")) return "ms-azure";
-  if (src.includes("cybersecurity")) return "cybersecurity";
-  if (src.includes("qlik")) return "qlik-sense";
-  if (src.includes("data bricks") || src.includes("databricks")) return "data-bricks";
-  if (src.includes("full stack")) return "full-stack";
-  if (src.includes("microsoft azure")) return "ms-azure";
-  return null;
-}
+const categoryMap: Record<string, string> = {
+  "Database": "DATABASE",
+  "Data Analytics": "DATA ANALYTICS",
+  "Cloud": "CLOUD",
+  "Security": "SECURITY",
+  "Development": "DEVELOPMENT",
+};
 
 const companyLogos = ["Microsoft", "Google", "Amazon", "Deloitte", "Accenture", "IBM", "Oracle", "Cognizant", "TCS", "Infosys"];
 
 export default function CoursesPage() {
-  const [courses, setCourses] = useState<Course[]>(fallbackCourses);
   const [searchValue, setSearchValue] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
 
-  useEffect(() => {
-    const loadCourses = async () => {
-      try {
-        const response = await fetch("/api/homepage-data", { cache: "no-store" });
-        if (!response.ok) return;
-        const payload = await response.json();
-        if (payload.ok && payload.courses?.length > 0) {
-          const normalized = payload.courses
-            .map((c: Course) => ({
-              ...c,
-              category: normalizeCourseCategory(c.title, c.category),
-              handle: c.handle || normalizeCourseHandle(c.title, c.handle ?? null),
-            }))
-            .filter((c: Course) => c.handle);
-          if (normalized.length > 0) setCourses(normalized);
-        }
-      } catch { /* keep fallback */ }
-    };
-    void loadCourses();
-  }, []);
-
-  const filteredCourses = courses.filter((course) => {
+  const filteredCourses = allCourses.filter((course) => {
     const matchesSearch = course.title.toLowerCase().includes(searchValue.toLowerCase());
     if (activeCategory === "All") return matchesSearch;
-    const normalized = normalizeCourseCategory(course.title, course.category);
-    const filterMap: Record<string, string> = {
-      "Database": "DATABASE",
-      "Data Analytics": "DATA ANALYTICS",
-      "Cloud": "CLOUD",
-      "Security": "SECURITY",
-      "Development": "DEVELOPMENT",
-    };
-    return matchesSearch && normalized === filterMap[activeCategory];
+    return matchesSearch && course.category === categoryMap[activeCategory];
   });
 
   return (
@@ -162,11 +113,11 @@ export default function CoursesPage() {
         <motion.div variants={stagger} className="mx-auto grid max-w-[1240px] gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
           {filteredCourses.map((course, i) => (
             <motion.div key={course.title} variants={fadeUp} custom={i}>
-              <Link href={course.handle ? `/courses/${course.handle}` : "/contact"}>
+              <Link href={`/courses/${course.handle}`}>
                 <motion.article whileHover={{ y: -6, transition: { duration: 0.25 } }}
                   className="group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]">
                   <div className="relative h-40 w-full overflow-hidden bg-[#f0f4f8] sm:h-44">
-                    <Image src={course.imageUrl || "/images/course-default.svg"} alt={course.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                    <Image src="/images/course-default.svg" alt={course.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                   </div>
                   <div className="p-4 sm:p-5">
                     <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#a0aab5]">{course.category}</p>
@@ -177,21 +128,15 @@ export default function CoursesPage() {
                     <div className="mt-4 flex items-center justify-between sm:mt-5">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-bold text-[#2ca9df]">{course.price}</span>
-                        {course.oldPrice && course.oldPrice !== course.price && <span className="text-xs text-[#b6bfc8] line-through">{course.oldPrice}</span>}
+                        {course.oldPrice !== course.price && <span className="text-xs text-[#b6bfc8] line-through">{course.oldPrice}</span>}
                       </div>
                       <div className="flex items-center gap-1 text-xs font-semibold text-[#f59e0b]">
                         <Star className="h-3.5 w-3.5 fill-current" /><span>{course.rating}</span>
                       </div>
                     </div>
-                    {course.handle ? (
-                      <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-[#2ca9df] opacity-0 transition-opacity group-hover:opacity-100 sm:mt-4">
-                        View Details <ArrowRight className="h-3 w-3" />
-                      </div>
-                    ) : (
-                      <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-[#2ca9df] opacity-0 transition-opacity group-hover:opacity-100 sm:mt-4">
-                        Contact Admissions <ArrowRight className="h-3 w-3" />
-                      </div>
-                    )}
+                    <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-[#2ca9df] opacity-0 transition-opacity group-hover:opacity-100 sm:mt-4">
+                      View Details <ArrowRight className="h-3 w-3" />
+                    </div>
                   </div>
                 </motion.article>
               </Link>

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | ITVision Academy",
   },
   description:
-    "Learn SQL, Azure, Cybersecurity, Power BI, Tableau, and Full Stack Development with live instructor-led courses. Get certified and job-ready in just one month. Offices in Texas, North Carolina & India.",
+    "Learn SQL, Azure, Cybersecurity, Power BI, Tableau, and Full Stack Development with live instructor-led courses. Get certified and job-ready in just one month. Based in Frisco, Texas.",
   keywords: [
     "ITVision Academy",
     "tech courses",
@@ -43,7 +43,10 @@ export const metadata: Metadata = {
     "online tech education",
     "job-ready training",
     "IT certifications",
-    "Plano Texas",
+    "Frisco Texas",
+    "data analytics training",
+    "Azure Databricks",
+    "Qlik Sense",
   ],
   authors: [{ name: "ITVision Academy", url: BASE_URL }],
   creator: "ITVision Academy",
@@ -57,21 +60,12 @@ export const metadata: Metadata = {
     title: "ITVision Academy — Get Job-Ready with World-Class Tech Education",
     description:
       "Live instructor-led courses in SQL, Azure, Cybersecurity, Power BI & more. Get certified in one month.",
-    images: [
-      {
-        url: "/logo.png",
-        width: 400,
-        height: 100,
-        alt: "ITVision Academy Logo",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "ITVision Academy — World-Class Tech Education",
     description:
       "Get job-ready with live instructor-led courses. SQL, Azure, Cybersecurity, Power BI & more.",
-    images: ["/logo.png"],
   },
   manifest: "/manifest.json",
   icons: {

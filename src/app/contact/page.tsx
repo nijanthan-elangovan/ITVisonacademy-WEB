@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -13,10 +12,6 @@ import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import LeadForm from "@/components/LeadForm";
 import { fadeUp, stagger, scaleIn } from "@/components/animations";
-
-const offices = [
-  { city: "Frisco, Texas (HQ)", address: "9300 John Hickman Parkway, #1104, Frisco, TX", phone: "(214) 727-2154" },
-];
 
 export default function ContactPage() {
   return (
@@ -66,53 +61,48 @@ export default function ContactPage() {
         </div>
       </motion.section>
 
-      {/* ── Form + Offices ── */}
+      {/* ── Full-Width Form ── */}
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger} className="px-5 py-8 sm:px-10 sm:py-14 lg:px-12">
-        <div className="mx-auto grid max-w-[1240px] gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
-          {/* Form */}
-          <motion.div variants={scaleIn} className="rounded-2xl bg-white p-5 shadow-[0_14px_40px_rgba(15,23,42,0.05)] ring-1 ring-black/5 sm:p-8">
-            <h2 className="text-xl font-extrabold tracking-[-0.04em] text-[#111827] sm:text-2xl">Send us a message</h2>
-            <p className="mt-2 text-sm text-[#74808b]">Fill out the form below and we&apos;ll get back to you within 24 hours.</p>
-            <LeadForm source="contact" showSubject className="mt-5 sm:mt-6" />
-          </motion.div>
+        <motion.div variants={scaleIn} className="mx-auto max-w-[1240px] rounded-2xl bg-white p-5 shadow-[0_14px_40px_rgba(15,23,42,0.05)] ring-1 ring-black/5 sm:p-8">
+          <h2 className="text-xl font-extrabold tracking-[-0.04em] text-[#111827] sm:text-2xl">Send us a message</h2>
+          <p className="mt-2 text-sm text-[#74808b]">Fill out the form below and we&apos;ll get back to you within 24 hours.</p>
+          <LeadForm source="contact" showSubject className="mt-5 sm:mt-6" />
+        </motion.div>
+      </motion.section>
 
-          {/* Office Locations */}
-          <div className="space-y-3 sm:space-y-4">
-            <motion.div variants={fadeUp}><SectionEyebrow>Our Offices</SectionEyebrow></motion.div>
-            <motion.h2 variants={fadeUp} className="text-xl font-extrabold tracking-[-0.04em] text-[#111827] sm:text-2xl">Visit us</motion.h2>
-            {offices.map((office, i) => (
-              <motion.div key={office.city} variants={fadeUp} custom={i}
-                className="rounded-2xl bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.04)] ring-1 ring-black/5 sm:p-5">
-                <h3 className="text-sm font-bold text-[#192231]">{office.city}</h3>
-                <div className="mt-2 flex items-start gap-2 text-xs text-[#74808b]">
-                  <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2ca9df]" />{office.address}
-                </div>
-                {office.phone && (
-                  <div className="mt-1.5 flex items-center gap-2 text-xs text-[#74808b]">
-                    <Phone className="h-3.5 w-3.5 shrink-0 text-[#2ca9df]" />
-                    <a href={`tel:${office.phone.replace(/[^0-9]/g, "")}`} className="hover:text-[#2ca9df]">{office.phone}</a>
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
+      {/* ── Office Address ── */}
+      <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger} className="px-5 sm:px-10 lg:px-12">
+        <div className="mx-auto max-w-[1240px]">
+          <motion.div variants={fadeUp}><SectionEyebrow>Our Office</SectionEyebrow></motion.div>
+          <motion.h2 variants={fadeUp} className="mt-3 text-xl font-extrabold tracking-[-0.04em] text-[#111827] sm:text-2xl">Visit us</motion.h2>
+          <motion.div variants={fadeUp}
+            className="mt-4 rounded-2xl bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.04)] ring-1 ring-black/5 sm:p-5">
+            <h3 className="text-sm font-bold text-[#192231]">Frisco, Texas (HQ)</h3>
+            <div className="mt-2 flex items-start gap-2 text-xs text-[#74808b]">
+              <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2ca9df]" />9300 John Hickman Parkway, #1104, Frisco, TX
+            </div>
+            <div className="mt-1.5 flex items-center gap-2 text-xs text-[#74808b]">
+              <Phone className="h-3.5 w-3.5 shrink-0 text-[#2ca9df]" />
+              <a href="tel:12147272154" className="hover:text-[#2ca9df]">(214) 727-2154</a>
+            </div>
+          </motion.div>
         </div>
       </motion.section>
 
-      {/* ── Map / People image ── */}
-      <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger} className="px-5 pb-3 pt-2 sm:px-10 lg:px-12">
-        <motion.div variants={scaleIn} className="relative mx-auto h-[200px] max-w-[1240px] overflow-hidden rounded-2xl sm:h-[300px]">
-          <Image
-            src="/images/contact-office.svg"
-            alt="Modern office space"
-            fill className="object-cover"
-            sizes="100vw"
+      {/* ── Google Map ── */}
+      <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger} className="px-5 py-6 sm:px-10 sm:py-8 lg:px-12">
+        <motion.div variants={scaleIn} className="mx-auto max-w-[1240px] overflow-hidden rounded-2xl shadow-[0_14px_40px_rgba(15,23,42,0.08)] ring-1 ring-black/5">
+          <iframe
+            title="ITVision Academy — Frisco, TX"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3343.8!2d-96.8204!3d33.1007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c3c6b1a1a1a1%3A0x0!2s9300+John+Hickman+Pkwy%2C+Frisco%2C+TX!5e0!3m2!1sen!2sus!4v1"
+            width="100%"
+            height="350"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="sm:h-[400px]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#18283a]/60 to-transparent" />
-          <div className="absolute bottom-4 left-4 text-white sm:bottom-6 sm:left-8">
-            <p className="text-lg font-bold sm:text-xl">HQ — Frisco, Texas</p>
-            <p className="text-xs text-white/70 sm:text-sm">9300 John Hickman Parkway, #1104, Frisco, TX</p>
-          </div>
         </motion.div>
       </motion.section>
 
