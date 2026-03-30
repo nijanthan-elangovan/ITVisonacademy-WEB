@@ -129,7 +129,7 @@ export default function CoursesPage() {
         <motion.div variants={stagger} className="mx-auto grid max-w-[1240px] gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
           {filteredCourses.map((course, i) => (
             <motion.div key={course.title} variants={fadeUp} custom={i}>
-              <Link href={`/courses/${course.handle || "course"}`}>
+              <Link href={course.handle ? `/courses/${course.handle}` : "/contact"}>
                 <motion.article whileHover={{ y: -6, transition: { duration: 0.25 } }}
                   className="group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]">
                   <div className="relative h-40 w-full overflow-hidden bg-[#f0f4f8] sm:h-44">
@@ -150,9 +150,15 @@ export default function CoursesPage() {
                         <Star className="h-3.5 w-3.5 fill-current" /><span>{course.rating}</span>
                       </div>
                     </div>
-                    <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-[#2ca9df] opacity-0 transition-opacity group-hover:opacity-100 sm:mt-4">
-                      View Details <ArrowRight className="h-3 w-3" />
-                    </div>
+                    {course.handle ? (
+                      <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-[#2ca9df] opacity-0 transition-opacity group-hover:opacity-100 sm:mt-4">
+                        View Details <ArrowRight className="h-3 w-3" />
+                      </div>
+                    ) : (
+                      <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-[#2ca9df] opacity-0 transition-opacity group-hover:opacity-100 sm:mt-4">
+                        Contact Admissions <ArrowRight className="h-3 w-3" />
+                      </div>
+                    )}
                   </div>
                 </motion.article>
               </Link>

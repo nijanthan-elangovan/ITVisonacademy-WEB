@@ -21,6 +21,31 @@ type HomeFaq = {
   answer: string;
 };
 
+function normalizeCourseHandle(input: {
+  title: string;
+  handle: string | null;
+  productType: string | null;
+}) {
+  const source = `${input.title} ${input.handle ?? ""} ${input.productType ?? ""}`.toLowerCase();
+
+  if (source.includes("+") || source.includes("bundle") || source.includes("discount")) {
+    return null;
+  }
+
+  if (source.includes("advanced database") || source.includes("sql advanced")) return "sql-advanced";
+  if (source.includes("database fundamentals") || source.includes("sql basic")) return "sql-basic";
+  if (source.includes("power bi")) return "power-bi";
+  if (source.includes("tableau")) return "tableau";
+  if (source.includes("azure data factory")) return "ms-azure";
+  if (source.includes("cybersecurity")) return "cybersecurity";
+  if (source.includes("qlik")) return "qlik-sense";
+  if (source.includes("data bricks") || source.includes("databricks")) return "data-bricks";
+  if (source.includes("full stack")) return "full-stack";
+  if (source.includes("microsoft azure")) return "ms-azure";
+
+  return null;
+}
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : undefined,
@@ -123,7 +148,11 @@ export async function GET() {
       return {
         category: (row.product_type || "COURSE").toUpperCase(),
         title: row.title,
-        handle: row.handle ?? null,
+        handle: normalizeCourseHandle({
+          title: row.title,
+          handle: row.handle ?? null,
+          productType: row.product_type ?? null,
+        }),
         author: row.vendor ?? "ITVision Academy",
         lessons: "12 Sessions",
         price: formatMoney(minPrice),
