@@ -7,8 +7,10 @@ import { useEffect, useState } from "react";
 import {
   ChevronDown,
   CirclePlay,
+  GraduationCap,
   Grid2x2,
   Lock,
+  MapPin,
   MonitorPlay,
   MoveUpRight,
   Search,
@@ -242,6 +244,89 @@ export default function Home() {
               </div>
             </motion.div>
           </motion.div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={stagger}
+        className="px-5 py-8 sm:px-10 sm:py-12 lg:px-12"
+      >
+        <div className="mx-auto max-w-[1240px] overflow-hidden rounded-[2rem] bg-[linear-gradient(135deg,#0e2437_0%,#173c5f_42%,#2ca9df_100%)] p-6 text-white shadow-[0_24px_70px_rgba(15,23,42,0.12)] sm:p-8 lg:p-10">
+          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div>
+              <motion.div variants={fadeUp}>
+                <SectionEyebrow>Program Spotlight</SectionEyebrow>
+              </motion.div>
+              <motion.h2
+                variants={fadeUp}
+                className="mt-5 max-w-[700px] text-3xl font-extrabold uppercase leading-[0.95] tracking-[-0.06em] sm:text-4xl lg:text-[4.4rem]"
+              >
+                Mid-level is not a ceiling. It&apos;s a launchpad.
+              </motion.h2>
+              <motion.p
+                variants={fadeUp}
+                className="mt-5 max-w-[640px] text-sm leading-7 text-white/78 sm:text-base"
+              >
+                A hands-on readiness program for Program Managers, Technical
+                Managers, TPMs, and TPGMs who want sharper market positioning,
+                role-specific interview prep, AI readiness, and direct
+                mentorship.
+              </motion.p>
+              <motion.div
+                variants={fadeUp}
+                className="mt-6 flex flex-wrap items-center gap-3"
+              >
+                <Link
+                  href="/launchpad"
+                  className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-5 text-sm font-semibold text-[#10263a] shadow-[0_16px_40px_rgba(0,0,0,0.2)] transition hover:-translate-y-0.5"
+                >
+                  Explore Launchpad
+                </Link>
+                <Link
+                  href="/launchpad#launchpad-signup"
+                  className="inline-flex h-12 items-center justify-center rounded-xl border border-white/20 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/16"
+                >
+                  Sign up now
+                </Link>
+              </motion.div>
+            </div>
+
+            <motion.div
+              variants={stagger}
+              className="grid gap-4 sm:grid-cols-2"
+            >
+              <motion.div
+                variants={fadeUp}
+                className="rounded-[1.6rem] border border-white/10 bg-white/10 p-5 backdrop-blur"
+              >
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[#2ca9df]">
+                  <GraduationCap className="h-5 w-5" />
+                </div>
+                <h3 className="mt-4 text-lg font-bold">
+                  Learn from MIT Solve award winners
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-white/72">
+                  Built for professionals who have already proven themselves and
+                  now need the right framing, polish, and market-ready story.
+                </p>
+              </motion.div>
+              <motion.div
+                variants={fadeUp}
+                className="rounded-[1.6rem] border border-white/10 bg-[#ecf7fd] p-5 text-[#10263a]"
+              >
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[#2ca9df]">
+                  <MapPin className="h-5 w-5" />
+                </div>
+                <h3 className="mt-4 text-lg font-bold">Frisco headquarters</h3>
+                <p className="mt-2 text-sm leading-7 text-[#4b5563]">
+                  9300 John Hickman Parkway, #1104, Frisco, TX.
+                </p>
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
       </motion.section>
 

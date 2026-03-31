@@ -9,6 +9,7 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "/" },
+  { label: "Launchpad", href: "/launchpad" },
   { label: "About Us", href: "/about" },
   { label: "Courses", href: "/courses" },
   { label: "Contact Us", href: "/contact" },
@@ -92,10 +93,10 @@ export default function Header() {
         <div className="flex items-center gap-2 sm:gap-3">
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             <Link
-              href="/courses"
+              href="/launchpad"
               className="hidden rounded-xl bg-[#10263a] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(16,38,58,0.16)] transition-shadow hover:shadow-[0_16px_40px_rgba(16,38,58,0.24)] sm:inline-block"
             >
-              Get started
+              Join Launchpad
             </Link>
           </motion.div>
           <MobileNav />
