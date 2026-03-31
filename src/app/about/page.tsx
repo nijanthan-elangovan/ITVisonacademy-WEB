@@ -42,14 +42,26 @@ export default function AboutPage() {
         initial="hidden" animate="visible" variants={stagger}
         className="overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#2ca9df_0%,#2387cf_48%,#203b77_100%)] px-5 py-10 text-white sm:rounded-[1.5rem] sm:px-10 sm:py-16 lg:px-12 lg:py-20"
       >
-        <div className="mx-auto max-w-[1240px] text-center">
-          <motion.div variants={fadeUp}><SectionEyebrow>About Us</SectionEyebrow></motion.div>
-          <motion.h1 variants={fadeUp} className="mx-auto mt-4 max-w-[700px] text-3xl font-extrabold leading-[1.08] tracking-[-0.04em] sm:mt-5 sm:text-4xl md:text-5xl lg:text-[3.5rem]">
-            Helping 100,000 people become job-ready in 10 years
-          </motion.h1>
-          <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-[600px] text-sm leading-7 text-white/80 sm:mt-6 sm:text-base">
-            At ITVision Academy, our instructors deliver practical, mentor-led training designed to help you build confidence, gain certification, and move into high-demand tech roles.
-          </motion.p>
+        <div className="mx-auto grid max-w-[1240px] gap-8 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+          <div className="text-center lg:text-left">
+            <motion.div variants={fadeUp}><SectionEyebrow>About Us</SectionEyebrow></motion.div>
+            <motion.h1 variants={fadeUp} className="mx-auto mt-4 max-w-[700px] text-3xl font-extrabold leading-[1.08] tracking-[-0.04em] sm:mt-5 sm:text-4xl md:text-5xl lg:mx-0 lg:text-[3.5rem]">
+              Helping 100,000 people become job-ready in 10 years
+            </motion.h1>
+            <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-[600px] text-sm leading-7 text-white/80 sm:mt-6 sm:text-base lg:mx-0">
+              At ITVision Academy, our instructors deliver practical, mentor-led training designed to help you build confidence, gain certification, and move into high-demand tech roles.
+            </motion.p>
+          </div>
+          <motion.div variants={fadeUp} className="relative h-64 overflow-hidden rounded-[1.8rem] border border-white/15 bg-white/10 shadow-[0_24px_70px_rgba(9,20,32,0.2)]">
+            <Image
+              src="/images/about-team.svg"
+              alt="ITVision Academy team"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 45vw"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,38,58,0.08)_0%,rgba(16,38,58,0.68)_100%)]" />
+          </motion.div>
         </div>
       </motion.section>
 
@@ -57,7 +69,7 @@ export default function AboutPage() {
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger} className="px-5 py-6 sm:px-10 sm:py-8 lg:px-12">
         <div className="mx-auto grid max-w-[1240px] grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
           {stats.map((stat, i) => (
-            <motion.div key={stat.label} variants={fadeUp} custom={i} className="rounded-2xl bg-white p-4 text-center shadow-[0_14px_40px_rgba(15,23,42,0.05)] ring-1 ring-black/5 sm:p-6">
+            <motion.div key={stat.label} variants={fadeUp} custom={i} className="rounded-2xl bg-white p-4 text-center shadow-[0_14px_40px_rgba(15,23,42,0.05)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_55px_rgba(15,23,42,0.1)] sm:p-6">
               <div className="text-2xl font-extrabold text-[#2ca9df] sm:text-3xl">{stat.value}</div>
               <div className="mt-1 text-xs text-[#74808b] sm:mt-2 sm:text-sm">{stat.label}</div>
             </motion.div>

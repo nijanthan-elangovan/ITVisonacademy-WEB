@@ -51,14 +51,28 @@ export default function BlogPage() {
       {/* ── Hero ── */}
       <motion.section initial="hidden" animate="visible" variants={stagger}
         className="overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#2ca9df_0%,#2387cf_48%,#203b77_100%)] px-5 py-10 text-white sm:rounded-[1.5rem] sm:px-10 sm:py-16 lg:px-12 lg:py-20">
-        <div className="mx-auto max-w-[1240px] text-center">
-          <motion.div variants={fadeUp}><SectionEyebrow>Blog</SectionEyebrow></motion.div>
-          <motion.h1 variants={fadeUp} className="mx-auto mt-4 max-w-[600px] text-3xl font-extrabold leading-[1.08] tracking-[-0.04em] sm:mt-5 sm:text-4xl md:text-5xl lg:text-[3.5rem]">
-            News & Insights
-          </motion.h1>
-          <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-[500px] text-sm leading-7 text-white/80 sm:mt-5 sm:text-base">
-            Stay updated with the latest trends in tech education, career tips, and industry insights from ITVision Academy.
-          </motion.p>
+        <div className="mx-auto grid max-w-[1240px] gap-8 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+          <div className="text-center lg:text-left">
+            <motion.div variants={fadeUp}><SectionEyebrow>Blog</SectionEyebrow></motion.div>
+            <motion.h1 variants={fadeUp} className="mx-auto mt-4 max-w-[600px] text-3xl font-extrabold leading-[1.08] tracking-[-0.04em] sm:mt-5 sm:text-4xl md:text-5xl lg:mx-0 lg:text-[3.5rem]">
+              News & Insights
+            </motion.h1>
+            <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-[500px] text-sm leading-7 text-white/80 sm:mt-5 sm:text-base lg:mx-0">
+              Stay updated with the latest trends in tech education, career tips, and industry insights from ITVision Academy.
+            </motion.p>
+          </div>
+          <motion.div variants={fadeUp} className="grid gap-4 sm:grid-cols-2">
+            {[blogPosts[0], blogPosts[1]].map((post) => (
+              <div key={post.slug} className="group relative h-60 overflow-hidden rounded-[1.7rem] border border-white/15 bg-white/10">
+                <Image src={post.image} alt={post.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 1024px) 100vw, 25vw" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,38,58,0.08)_0%,rgba(16,38,58,0.82)_100%)]" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#9ddcf6]">{post.category}</p>
+                  <p className="mt-2 text-base font-bold leading-7 text-white">{post.title}</p>
+                </div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </motion.section>
 
@@ -125,19 +139,25 @@ export default function BlogPage() {
 
       {/* ── Newsletter CTA ── */}
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger} className="px-5 pb-3 pt-2 sm:px-10 lg:px-12">
-        <div className="mx-auto max-w-[1240px] overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#2ca9df_0%,#2492d7_45%,#203b77_100%)] px-5 py-8 text-center text-white sm:rounded-[1.55rem] sm:px-10 sm:py-12">
-          <motion.h2 variants={fadeUp} className="mx-auto max-w-[500px] text-2xl font-extrabold leading-tight tracking-[-0.04em] sm:text-3xl md:text-[2.5rem]">
-            Stay in the loop
-          </motion.h2>
-          <motion.p variants={fadeUp} className="mx-auto mt-3 max-w-[420px] text-sm leading-7 text-white/80 sm:mt-4">
-            Follow us on LinkedIn for the latest updates, career tips, and course announcements.
-          </motion.p>
-          <motion.div variants={fadeUp} className="mt-5 flex justify-center sm:mt-6">
-            <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
-              href="https://www.linkedin.com/company/itvisionacademy/" target="_blank" rel="noopener noreferrer"
-              className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#112a3d] px-5 text-sm font-semibold text-white transition-shadow hover:shadow-lg">
-              Follow on LinkedIn <ArrowRight className="h-4 w-4" />
-            </motion.a>
+        <div className="mx-auto grid max-w-[1240px] gap-6 overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#2ca9df_0%,#2492d7_45%,#203b77_100%)] px-5 py-8 text-white sm:rounded-[1.55rem] sm:px-10 sm:py-12 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+          <div className="text-center lg:text-left">
+            <motion.h2 variants={fadeUp} className="mx-auto max-w-[500px] text-2xl font-extrabold leading-tight tracking-[-0.04em] sm:text-3xl md:text-[2.5rem] lg:mx-0">
+              Stay in the loop
+            </motion.h2>
+            <motion.p variants={fadeUp} className="mx-auto mt-3 max-w-[420px] text-sm leading-7 text-white/80 sm:mt-4 lg:mx-0">
+              Follow us on LinkedIn for the latest updates, career tips, and course announcements.
+            </motion.p>
+            <motion.div variants={fadeUp} className="mt-5 flex justify-center sm:mt-6 lg:justify-start">
+              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
+                href="https://www.linkedin.com/company/itvisionacademy/" target="_blank" rel="noopener noreferrer"
+                className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#112a3d] px-5 text-sm font-semibold text-white transition-shadow hover:shadow-lg">
+                Follow on LinkedIn <ArrowRight className="h-4 w-4" />
+              </motion.a>
+            </motion.div>
+          </div>
+          <motion.div variants={fadeUp} className="relative h-64 overflow-hidden rounded-[1.7rem] shadow-[0_24px_70px_rgba(9,20,32,0.28)]">
+            <Image src="/images/blog-tech-3.svg" alt="Technology insights illustration" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,38,58,0.08)_0%,rgba(16,38,58,0.55)_100%)]" />
           </motion.div>
         </div>
       </motion.section>

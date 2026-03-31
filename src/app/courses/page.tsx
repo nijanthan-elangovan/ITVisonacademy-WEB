@@ -62,14 +62,38 @@ export default function CoursesPage() {
       {/* ── Hero ── */}
       <motion.section initial="hidden" animate="visible" variants={stagger}
         className="overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#2ca9df_0%,#2387cf_48%,#203b77_100%)] px-5 py-10 text-white sm:rounded-[1.5rem] sm:px-10 sm:py-16 lg:px-12 lg:py-20">
-        <div className="mx-auto max-w-[1240px] text-center">
-          <motion.div variants={fadeUp}><SectionEyebrow>Our Courses</SectionEyebrow></motion.div>
-          <motion.h1 variants={fadeUp} className="mx-auto mt-4 max-w-[600px] text-3xl font-extrabold leading-[1.08] tracking-[-0.04em] sm:mt-5 sm:text-4xl md:text-5xl lg:text-[3.5rem]">
-            Learn Today, Work Tomorrow
-          </motion.h1>
-          <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-[500px] text-sm leading-7 text-white/80 sm:mt-5 sm:text-base">
-            Get job-ready with us. Join us in reshaping the future — one where careers are built on purpose, inclusiveness flourishes, and technology becomes a force for positive change.
-          </motion.p>
+        <div className="mx-auto grid max-w-[1240px] gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+          <div className="text-center lg:text-left">
+            <motion.div variants={fadeUp}><SectionEyebrow>Our Courses</SectionEyebrow></motion.div>
+            <motion.h1 variants={fadeUp} className="mx-auto mt-4 max-w-[600px] text-3xl font-extrabold leading-[1.08] tracking-[-0.04em] sm:mt-5 sm:text-4xl md:text-5xl lg:mx-0 lg:text-[3.5rem]">
+              Learn today, work tomorrow
+            </motion.h1>
+            <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-[560px] text-sm leading-7 text-white/80 sm:mt-5 sm:text-base lg:mx-0">
+              Get job-ready with practical, mentor-led training built around the tools employers actually use across data, cloud, security, and development.
+            </motion.p>
+          </div>
+          <motion.div variants={fadeUp} className="grid gap-4 sm:grid-cols-2">
+            <div className="group relative overflow-hidden rounded-[1.7rem] border border-white/15 bg-white/10 p-4 backdrop-blur transition duration-300 hover:-translate-y-1">
+              <div className="relative h-48 overflow-hidden rounded-[1.2rem]">
+                <Image src="/images/team-learning.svg" alt="Students learning together" fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 1024px) 100vw, 25vw" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,38,58,0.05)_0%,rgba(16,38,58,0.78)_100%)]" />
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-8 text-left text-white">
+                <p className="text-sm font-semibold">Live instruction</p>
+                <p className="mt-1 text-xs text-white/75">Hands-on, career-aligned, mentor-led sessions</p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="rounded-[1.7rem] border border-white/15 bg-white/10 p-5 backdrop-blur transition duration-300 hover:-translate-y-1">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">What stands out</p>
+                <p className="mt-3 text-lg font-bold leading-8">Clear learning paths, practical projects, and outcomes that read well in interviews.</p>
+              </div>
+              <div className="rounded-[1.7rem] bg-[#ecf7fd] p-5 text-[#10263a] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(6,21,36,0.18)]">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2ca9df]">Professional edge</p>
+                <p className="mt-3 text-lg font-bold leading-8">Course tracks that build confidence in tools, workflows, and communication, not just theory.</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </motion.section>
 
@@ -153,19 +177,25 @@ export default function CoursesPage() {
 
       {/* ── Bundle CTA ── */}
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger} className="px-5 pb-3 pt-2 sm:px-10 lg:px-12">
-        <div className="mx-auto max-w-[1240px] overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#2ca9df_0%,#2492d7_45%,#203b77_100%)] px-5 py-8 text-center text-white sm:rounded-[1.55rem] sm:px-10 sm:py-12">
-          <motion.h2 variants={fadeUp} className="mx-auto max-w-[500px] text-2xl font-extrabold leading-tight tracking-[-0.04em] sm:text-3xl md:text-[2.5rem]">
-            Bundle Offer: Enroll in two courses and get the third one free
-          </motion.h2>
-          <motion.p variants={fadeUp} className="mx-auto mt-3 max-w-[420px] text-sm leading-7 text-white/80 sm:mt-4">
-            Three courses for $1,000 (normally $1,497). Bundle and save on your path to a tech career.
-          </motion.p>
-          <motion.div variants={fadeUp} className="mt-5 flex justify-center sm:mt-6">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/contact" className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#112a3d] px-5 text-sm font-semibold text-white transition-shadow hover:shadow-lg">
-                Get Bundle Deal <ArrowRight className="h-4 w-4" />
-              </Link>
+        <div className="mx-auto grid max-w-[1240px] gap-6 overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#2ca9df_0%,#2492d7_45%,#203b77_100%)] px-5 py-8 text-white sm:rounded-[1.55rem] sm:px-10 sm:py-12 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+          <div className="text-center lg:text-left">
+            <motion.h2 variants={fadeUp} className="mx-auto max-w-[500px] text-2xl font-extrabold leading-tight tracking-[-0.04em] sm:text-3xl md:text-[2.5rem] lg:mx-0">
+              Bundle offer: enroll in two courses and get the third one free
+            </motion.h2>
+            <motion.p variants={fadeUp} className="mx-auto mt-3 max-w-[420px] text-sm leading-7 text-white/80 sm:mt-4 lg:mx-0">
+              Three courses for $1,000 instead of $1,497. Build a stronger skill stack without piecing your learning together course by course.
+            </motion.p>
+            <motion.div variants={fadeUp} className="mt-5 flex justify-center sm:mt-6 lg:justify-start">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+                <Link href="/contact" className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#112a3d] px-5 text-sm font-semibold text-white transition-shadow hover:shadow-lg">
+                  Get Bundle Deal <ArrowRight className="h-4 w-4" />
+                </Link>
+              </motion.div>
             </motion.div>
+          </div>
+          <motion.div variants={fadeUp} className="relative h-64 overflow-hidden rounded-[1.7rem] shadow-[0_24px_70px_rgba(9,20,32,0.28)]">
+            <Image src="/images/laptop-study.svg" alt="Student working through online course material" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,38,58,0.08)_0%,rgba(16,38,58,0.55)_100%)]" />
           </motion.div>
         </div>
       </motion.section>

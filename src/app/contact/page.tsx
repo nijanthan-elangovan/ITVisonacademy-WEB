@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -21,14 +22,20 @@ export default function ContactPage() {
       {/* ── Hero ── */}
       <motion.section initial="hidden" animate="visible" variants={stagger}
         className="overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#2ca9df_0%,#2387cf_48%,#203b77_100%)] px-5 py-10 text-white sm:rounded-[1.5rem] sm:px-10 sm:py-16 lg:px-12 lg:py-20">
-        <div className="mx-auto max-w-[1240px] text-center">
-          <motion.div variants={fadeUp}><SectionEyebrow>Contact Us</SectionEyebrow></motion.div>
-          <motion.h1 variants={fadeUp} className="mx-auto mt-4 max-w-[600px] text-3xl font-extrabold leading-[1.08] tracking-[-0.04em] sm:mt-5 sm:text-4xl md:text-5xl lg:text-[3.5rem]">
-            Talk to our admissions team
-          </motion.h1>
-          <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-[500px] text-sm leading-7 text-white/80 sm:mt-5 sm:text-base">
-            Have questions about class schedules, pricing, or enrollment? We&apos;re here to help.
-          </motion.p>
+        <div className="mx-auto grid max-w-[1240px] gap-8 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+          <div className="text-center lg:text-left">
+            <motion.div variants={fadeUp}><SectionEyebrow>Contact Us</SectionEyebrow></motion.div>
+            <motion.h1 variants={fadeUp} className="mx-auto mt-4 max-w-[600px] text-3xl font-extrabold leading-[1.08] tracking-[-0.04em] sm:mt-5 sm:text-4xl md:text-5xl lg:mx-0 lg:text-[3.5rem]">
+              Talk to our admissions team
+            </motion.h1>
+            <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-[500px] text-sm leading-7 text-white/80 sm:mt-5 sm:text-base lg:mx-0">
+              Have questions about class schedules, pricing, or enrollment? We&apos;re here to help.
+            </motion.p>
+          </div>
+          <motion.div variants={fadeUp} className="relative h-64 overflow-hidden rounded-[1.8rem] border border-white/15 bg-white/10 shadow-[0_24px_70px_rgba(9,20,32,0.2)]">
+            <Image src="/images/contact-office.svg" alt="ITVision Academy office contact illustration" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 45vw" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,38,58,0.1)_0%,rgba(16,38,58,0.68)_100%)]" />
+          </motion.div>
         </div>
       </motion.section>
 
@@ -63,7 +70,7 @@ export default function ContactPage() {
 
       {/* ── Full-Width Form ── */}
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger} className="px-5 py-8 sm:px-10 sm:py-14 lg:px-12">
-        <motion.div variants={scaleIn} className="mx-auto max-w-[1240px] rounded-2xl bg-white p-5 shadow-[0_14px_40px_rgba(15,23,42,0.05)] ring-1 ring-black/5 sm:p-8">
+        <motion.div variants={scaleIn} className="mx-auto max-w-[1240px] rounded-2xl bg-white p-5 shadow-[0_14px_40px_rgba(15,23,42,0.05)] ring-1 ring-black/5 transition duration-300 hover:shadow-[0_24px_60px_rgba(15,23,42,0.1)] sm:p-8">
           <h2 className="text-xl font-extrabold tracking-[-0.04em] text-[#111827] sm:text-2xl">Send us a message</h2>
           <p className="mt-2 text-sm text-[#74808b]">Fill out the form below and we&apos;ll get back to you within 24 hours.</p>
           <LeadForm source="contact" showSubject className="mt-5 sm:mt-6" />

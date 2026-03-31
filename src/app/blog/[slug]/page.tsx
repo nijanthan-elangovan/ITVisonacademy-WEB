@@ -112,6 +112,18 @@ export default function BlogArticlePage() {
             <Image src={article.image} alt={article.title} fill className="object-cover" sizes="(max-width: 800px) 100vw, 800px" priority />
           </motion.div>
 
+          <motion.div variants={fadeUp} className="mt-6 grid gap-4 sm:grid-cols-3">
+            {[
+              "Practical career framing",
+              "Industry-relevant skills",
+              "Professional next steps",
+            ].map((item) => (
+              <div key={item} className="rounded-[1.3rem] border border-[#dce7ee] bg-white px-4 py-4 text-sm font-semibold text-[#334155] shadow-[0_12px_30px_rgba(15,23,42,0.04)]">
+                {item}
+              </div>
+            ))}
+          </motion.div>
+
           <motion.div variants={stagger} className="mt-6 space-y-5 sm:mt-8 sm:space-y-6">
             {article.content.map((paragraph, i) => (
               <motion.p key={i} variants={fadeUp} className="text-sm leading-7 text-[#4a5563] sm:text-[15px] sm:leading-8">
