@@ -158,24 +158,7 @@ export default function LaunchpadPage() {
       </section>
 
       <section className="px-5 py-10 sm:px-10 sm:py-14 lg:px-12">
-        <div className="mx-auto grid max-w-[1240px] gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-          <div className="rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_rgba(15,23,42,0.06)] ring-1 ring-black/5">
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#edf7fd] px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-[#2ca9df]">
-              <Building2 className="h-4 w-4" />
-              Who it serves
-            </div>
-            <ul className="mt-6 space-y-4">
-              {audience.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-[1.4rem] border border-[#e4ebf1] bg-[#f8fbfd] px-5 py-4 text-sm leading-7 text-[#475569]"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
+        <div className="mx-auto max-w-[1240px]">
           <div className="rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_rgba(15,23,42,0.06)] ring-1 ring-black/5">
             <h2 className="text-[2.1rem] font-extrabold leading-[0.95] tracking-[-0.05em] text-[#2ca9df] sm:text-[2.8rem] lg:text-[3.25rem]">
               What you&apos;ll walk away with
@@ -218,6 +201,27 @@ export default function LaunchpadPage() {
                 </article>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 pb-6 sm:px-10 sm:pb-10 lg:px-12">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_rgba(15,23,42,0.06)] ring-1 ring-black/5">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#edf7fd] px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-[#2ca9df]">
+              <Building2 className="h-4 w-4" />
+              Who it serves
+            </div>
+            <ul className="mt-6 grid gap-4 md:grid-cols-2">
+              {audience.map((item) => (
+                <li
+                  key={item}
+                  className="rounded-[1.4rem] border border-[#e4ebf1] bg-[#f8fbfd] px-5 py-4 text-sm leading-7 text-[#475569]"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

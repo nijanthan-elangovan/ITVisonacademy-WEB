@@ -5,25 +5,27 @@ import nodemailer from "nodemailer";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const ensureTable = pool.query(`
-  CREATE TABLE IF NOT EXISTS leads (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    phone VARCHAR(50),
-    course VARCHAR(255),
-    subject VARCHAR(255),
-    message TEXT,
-    source VARCHAR(50) DEFAULT 'website',
-    created_at TIMESTAMPTZ DEFAULT NOW()
-  )
-`);
+async function ensureLeadSchema() {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS leads (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL,
+      phone VARCHAR(50),
+      course VARCHAR(255),
+      subject VARCHAR(255),
+      message TEXT,
+      source VARCHAR(50) DEFAULT 'website',
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
 
-const ensureLaunchpadColumns = pool.query(`
-  ALTER TABLE leads ADD COLUMN IF NOT EXISTS current_role VARCHAR(255);
-  ALTER TABLE leads ADD COLUMN IF NOT EXISTS target_role VARCHAR(255);
-  ALTER TABLE leads ADD COLUMN IF NOT EXISTS linkedin_url TEXT;
-`);
+  await pool.query(`
+    ALTER TABLE leads ADD COLUMN IF NOT EXISTS current_role VARCHAR(255);
+    ALTER TABLE leads ADD COLUMN IF NOT EXISTS target_role VARCHAR(255);
+    ALTER TABLE leads ADD COLUMN IF NOT EXISTS linkedin_url TEXT;
+  `);
+}
 
 type LeadPayload = {
   name: string;
@@ -271,8 +273,7 @@ async function sendLeadEmails(lead: LeadPayload) {
 
 export async function POST(req: NextRequest) {
   try {
-    await ensureTable;
-    await ensureLaunchpadColumns;
+    await ensureLeadSchema();
 
     const body = (await req.json()) as Partial<LeadPayload>;
     const {
