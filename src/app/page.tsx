@@ -109,6 +109,18 @@ const fallbackFaqs: FaqModel[] = [
   { question: "How can I choose the right course?", answer: "Use the contact form and our team will recommend a track based on your background and career goal." },
 ];
 
+const courseBranding: Record<string, { gradient: string; logo: string }> = {
+  "sql-basic":    { gradient: "from-[#CC2927] to-[#6B1515]", logo: "https://cdn.simpleicons.org/microsoftsqlserver/white" },
+  "sql-advanced": { gradient: "from-[#CC2927] to-[#6B1515]", logo: "https://cdn.simpleicons.org/microsoftsqlserver/white" },
+  "power-bi":     { gradient: "from-[#F2C811] to-[#D4A500]", logo: "https://cdn.simpleicons.org/powerbi/white" },
+  "tableau":      { gradient: "from-[#E97627] to-[#B85A1B]", logo: "https://cdn.simpleicons.org/tableau/white" },
+  "ms-azure":     { gradient: "from-[#0078D4] to-[#004E8C]", logo: "https://cdn.simpleicons.org/microsoftazure/white" },
+  "cybersecurity":{ gradient: "from-[#0F172A] to-[#1E293B]", logo: "https://cdn.simpleicons.org/hackthebox/9FEF00" },
+  "qlik-sense":   { gradient: "from-[#009848] to-[#006830]", logo: "https://cdn.simpleicons.org/qlik/white" },
+  "data-bricks":  { gradient: "from-[#FF3621] to-[#CC2B1A]", logo: "https://cdn.simpleicons.org/databricks/white" },
+  "full-stack":   { gradient: "from-[#20232A] to-[#0D6EFD]", logo: "https://cdn.simpleicons.org/react/white" },
+};
+
 /* ── helpers ── */
 
 function useCountUp(target: number, duration = 1500) {
@@ -145,16 +157,18 @@ function useCountUp(target: number, duration = 1500) {
 
 /* ── components ── */
 
-function CourseCard({ category, title, author, lessons, price, oldPrice, rating, imageUrl, handle }: CourseCardModel) {
-  const resolvedImage = imageUrl || "/images/course-default.svg";
+function CourseCard({ category, title, author, lessons, price, oldPrice, rating, handle }: CourseCardModel) {
+  const branding = handle ? courseBranding[handle] : null;
   const card = (
     <motion.article
       variants={fadeUp}
       whileHover={{ y: -6, transition: { duration: 0.25 } }}
       className="group h-full flex flex-col cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]"
     >
-      <div className="relative h-40 w-full overflow-hidden bg-[#f0f4f8] sm:h-44">
-        <Image src={resolvedImage} alt={title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+      <div className={`flex h-40 w-full items-center justify-center bg-gradient-to-br ${branding?.gradient || "from-[#2ca9df] to-[#203b77]"} sm:h-44`}>
+        {branding?.logo && (
+          <img src={branding.logo} alt="" className="h-14 w-14 opacity-90 transition-transform duration-500 group-hover:scale-110" />
+        )}
       </div>
       <div className="flex flex-col flex-1 p-4 sm:p-5">
         <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#a0aab5]">{category}</p>

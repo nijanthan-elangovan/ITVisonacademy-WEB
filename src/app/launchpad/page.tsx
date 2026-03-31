@@ -111,7 +111,7 @@ export default function LaunchpadPage() {
             >
               <div className="absolute inset-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
+                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80"
                   alt="Team collaborating around a table"
                   fill
                   className="object-cover opacity-30 transition duration-700 group-hover:scale-105"
@@ -174,19 +174,19 @@ export default function LaunchpadPage() {
           {[
             {
               image:
-                "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80",
+                "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80",
               title: "Career storytelling that sounds executive-ready",
               text: "Sharper positioning so your experience reads with clarity and authority.",
             },
             {
               image:
-                "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80",
+                "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80",
               title: "Interview confidence built on real outcomes",
               text: "Communicate scope, judgment, and technical fluency more convincingly.",
             },
             {
               image:
-                "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
+                "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
               title: "Professional polish without the buzzwords",
               text: "A cleaner, market-ready presence across your profile and conversations.",
             },
@@ -298,7 +298,7 @@ export default function LaunchpadPage() {
           >
             <div className="absolute inset-0 opacity-20">
               <Image
-                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80"
+                src="https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?w=800&q=80"
                 alt=""
                 fill
                 className="object-cover"
