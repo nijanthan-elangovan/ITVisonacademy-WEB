@@ -43,16 +43,16 @@ const categoryMap: Record<string, string> = {
   "Development": "DEVELOPMENT",
 };
 
-const courseBranding: Record<string, { gradient: string; logo: string }> = {
-  "sql-basic":    { gradient: "from-[#CC2927] to-[#6B1515]", logo: "https://cdn.simpleicons.org/microsoftsqlserver/white" },
-  "sql-advanced": { gradient: "from-[#CC2927] to-[#6B1515]", logo: "https://cdn.simpleicons.org/microsoftsqlserver/white" },
-  "power-bi":     { gradient: "from-[#F2C811] to-[#D4A500]", logo: "https://cdn.simpleicons.org/powerbi/white" },
-  "tableau":      { gradient: "from-[#E97627] to-[#B85A1B]", logo: "https://cdn.simpleicons.org/tableau/white" },
-  "ms-azure":     { gradient: "from-[#0078D4] to-[#004E8C]", logo: "https://cdn.simpleicons.org/microsoftazure/white" },
-  "cybersecurity":{ gradient: "from-[#0F172A] to-[#1E293B]", logo: "https://cdn.simpleicons.org/hackthebox/9FEF00" },
-  "qlik-sense":   { gradient: "from-[#009848] to-[#006830]", logo: "https://cdn.simpleicons.org/qlik/white" },
-  "data-bricks":  { gradient: "from-[#FF3621] to-[#CC2B1A]", logo: "https://cdn.simpleicons.org/databricks/white" },
-  "full-stack":   { gradient: "from-[#20232A] to-[#0D6EFD]", logo: "https://cdn.simpleicons.org/react/white" },
+const courseBranding: Record<string, { gradient: string }> = {
+  "sql-basic":    { gradient: "from-[#CC2927] to-[#6B1515]" },
+  "sql-advanced": { gradient: "from-[#CC2927] to-[#6B1515]" },
+  "power-bi":     { gradient: "from-[#F2C811] to-[#D4A500]" },
+  "tableau":      { gradient: "from-[#E97627] to-[#B85A1B]" },
+  "ms-azure":     { gradient: "from-[#0078D4] to-[#004E8C]" },
+  "cybersecurity":{ gradient: "from-[#0F172A] to-[#1E293B]" },
+  "qlik-sense":   { gradient: "from-[#009848] to-[#006830]" },
+  "data-bricks":  { gradient: "from-[#FF3621] to-[#CC2B1A]" },
+  "full-stack":   { gradient: "from-[#20232A] to-[#0D6EFD]" },
 };
 
 const companyLogos = ["Microsoft", "Google", "Amazon", "Deloitte", "Accenture", "IBM", "Oracle", "Cognizant", "TCS", "Infosys"];
@@ -87,7 +87,7 @@ export default function CoursesPage() {
           <motion.div variants={slideInRight} className="grid gap-4 sm:grid-cols-2">
             <div className="group relative overflow-hidden rounded-[1.7rem] border border-white/15 bg-white/10 p-4 backdrop-blur transition duration-300 hover:-translate-y-1">
               <div className="relative h-48 overflow-hidden rounded-[1.2rem]">
-                <Image src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80" alt="Students learning together" fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 1024px) 100vw, 25vw" />
+                <Image src="/images/photos/team-learning.jpg" alt="Students learning together" fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 1024px) 100vw, 25vw" />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,38,58,0.05)_0%,rgba(16,38,58,0.78)_100%)]" />
               </div>
               <div className="absolute inset-x-0 bottom-0 p-8 text-left text-white">
@@ -162,11 +162,7 @@ export default function CoursesPage() {
                 <Link href={`/courses/${course.handle}`}>
                   <motion.article whileHover={{ y: -6, transition: { duration: 0.25 } }}
                     className="h-full flex flex-col group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]">
-                    <div className={`flex h-40 w-full items-center justify-center bg-gradient-to-br ${courseBranding[course.handle]?.gradient || "from-[#2ca9df] to-[#203b77]"} sm:h-44`}>
-                      {courseBranding[course.handle]?.logo && (
-                        <img src={courseBranding[course.handle].logo} alt="" className="h-14 w-14 opacity-90 transition-transform duration-500 group-hover:scale-110" />
-                      )}
-                    </div>
+                    <div className={`flex h-40 w-full items-center justify-center bg-gradient-to-br ${courseBranding[course.handle]?.gradient || "from-[#2ca9df] to-[#203b77]"} sm:h-44`} />
                     <div className="flex flex-col flex-1 p-4 sm:p-5">
                       <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#a0aab5]">{course.category}</p>
                       <h3 className="mt-2 line-clamp-2 text-[0.95rem] font-bold leading-snug text-[#1c2635] sm:mt-3 sm:text-[1.02rem] sm:leading-6">{course.title}</h3>
@@ -239,7 +235,7 @@ export default function CoursesPage() {
             </motion.div>
           </motion.div>
           <motion.div variants={slideInRight} className="relative h-64 overflow-hidden rounded-[1.7rem] shadow-[0_24px_70px_rgba(9,20,32,0.28)]">
-            <Image src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80" alt="Student working through online course material" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
+            <Image src="/images/photos/courses-hero.jpg" alt="Student working through online course material" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,38,58,0.08)_0%,rgba(16,38,58,0.55)_100%)]" />
           </motion.div>
         </div>

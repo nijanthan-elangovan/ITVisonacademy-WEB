@@ -33,7 +33,7 @@ export default function ContactPage() {
             </motion.p>
           </div>
           <motion.div variants={fadeUp} className="relative h-64 overflow-hidden rounded-[1.8rem] border border-white/15 bg-white/10 shadow-[0_24px_70px_rgba(9,20,32,0.2)]">
-            <Image src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="ITVision Academy office contact illustration" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 45vw" />
+            <Image src="/images/photos/contact-office.jpg" alt="ITVision Academy office contact illustration" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 45vw" />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,38,58,0.1)_0%,rgba(16,38,58,0.68)_100%)]" />
           </motion.div>
         </div>

@@ -109,16 +109,16 @@ const fallbackFaqs: FaqModel[] = [
   { question: "How can I choose the right course?", answer: "Use the contact form and our team will recommend a track based on your background and career goal." },
 ];
 
-const courseBranding: Record<string, { gradient: string; logo: string }> = {
-  "sql-basic":    { gradient: "from-[#CC2927] to-[#6B1515]", logo: "https://cdn.simpleicons.org/microsoftsqlserver/white" },
-  "sql-advanced": { gradient: "from-[#CC2927] to-[#6B1515]", logo: "https://cdn.simpleicons.org/microsoftsqlserver/white" },
-  "power-bi":     { gradient: "from-[#F2C811] to-[#D4A500]", logo: "https://cdn.simpleicons.org/powerbi/white" },
-  "tableau":      { gradient: "from-[#E97627] to-[#B85A1B]", logo: "https://cdn.simpleicons.org/tableau/white" },
-  "ms-azure":     { gradient: "from-[#0078D4] to-[#004E8C]", logo: "https://cdn.simpleicons.org/microsoftazure/white" },
-  "cybersecurity":{ gradient: "from-[#0F172A] to-[#1E293B]", logo: "https://cdn.simpleicons.org/hackthebox/9FEF00" },
-  "qlik-sense":   { gradient: "from-[#009848] to-[#006830]", logo: "https://cdn.simpleicons.org/qlik/white" },
-  "data-bricks":  { gradient: "from-[#FF3621] to-[#CC2B1A]", logo: "https://cdn.simpleicons.org/databricks/white" },
-  "full-stack":   { gradient: "from-[#20232A] to-[#0D6EFD]", logo: "https://cdn.simpleicons.org/react/white" },
+const courseBranding: Record<string, { gradient: string }> = {
+  "sql-basic":    { gradient: "from-[#CC2927] to-[#6B1515]" },
+  "sql-advanced": { gradient: "from-[#CC2927] to-[#6B1515]" },
+  "power-bi":     { gradient: "from-[#F2C811] to-[#D4A500]" },
+  "tableau":      { gradient: "from-[#E97627] to-[#B85A1B]" },
+  "ms-azure":     { gradient: "from-[#0078D4] to-[#004E8C]" },
+  "cybersecurity":{ gradient: "from-[#0F172A] to-[#1E293B]" },
+  "qlik-sense":   { gradient: "from-[#009848] to-[#006830]" },
+  "data-bricks":  { gradient: "from-[#FF3621] to-[#CC2B1A]" },
+  "full-stack":   { gradient: "from-[#20232A] to-[#0D6EFD]" },
 };
 
 /* ── helpers ── */
@@ -165,11 +165,7 @@ function CourseCard({ category, title, author, lessons, price, oldPrice, rating,
       whileHover={{ y: -6, transition: { duration: 0.25 } }}
       className="group h-full flex flex-col cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]"
     >
-      <div className={`flex h-40 w-full items-center justify-center bg-gradient-to-br ${branding?.gradient || "from-[#2ca9df] to-[#203b77]"} sm:h-44`}>
-        {branding?.logo && (
-          <img src={branding.logo} alt="" className="h-14 w-14 opacity-90 transition-transform duration-500 group-hover:scale-110" />
-        )}
-      </div>
+      <div className={`flex h-40 w-full items-center justify-center bg-gradient-to-br ${branding?.gradient || "from-[#2ca9df] to-[#203b77]"} sm:h-44`} />
       <div className="flex flex-col flex-1 p-4 sm:p-5">
         <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#a0aab5]">{category}</p>
         <h3 className="mt-2 min-h-[2.5rem] text-[0.95rem] font-bold leading-snug text-[#1c2635] line-clamp-2 sm:mt-3 sm:text-[1.02rem] sm:leading-6">{title}</h3>
@@ -267,7 +263,7 @@ export default function Home() {
             <div className="absolute -right-4 -top-4 hidden h-56 w-56 rounded-full bg-[#79d3f7]/20 blur-3xl sm:block" />
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_30px_80px_rgba(9,20,32,0.35)] sm:rounded-3xl">
               <Image
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
+                src="/images/photos/hero-team.jpg"
                 alt="Students collaborating on tech projects"
                 fill
                 className="object-cover"
@@ -284,9 +280,9 @@ export default function Home() {
             >
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
-                  <Image src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&q=80" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white object-cover" />
-                  <Image src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&q=80" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white object-cover" />
-                  <Image src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=96&q=80" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white object-cover" />
+                  <Image src="/images/photos/avatar-man-1.jpg" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white object-cover" />
+                  <Image src="/images/photos/avatar-woman.jpg" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white object-cover" />
+                  <Image src="/images/photos/avatar-man-2.jpg" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white object-cover" />
                 </div>
                 <div>
                   <p className="text-xs font-bold text-[#1f2937]">2,500+ Students</p>
@@ -425,7 +421,7 @@ export default function Home() {
           <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
             <motion.div variants={scaleIn} className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80"
+                src="/images/photos/team-learning.jpg"
                 alt="Team collaborating on data projects"
                 fill
                 className="object-cover"
@@ -519,7 +515,7 @@ export default function Home() {
           </div>
           <motion.div variants={scaleIn} className="relative aspect-[4/3] min-h-[240px] overflow-hidden rounded-2xl sm:min-h-[320px]">
             <Image
-              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80"
+              src="/images/photos/students-celebrating.jpg"
               alt="Students celebrating success"
               fill
               className="object-cover"
@@ -620,7 +616,7 @@ export default function Home() {
             </div>
             <motion.div variants={scaleIn} className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_30px_80px_rgba(9,20,32,0.3)]">
               <Image
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80"
+                src="/images/photos/courses-hero.jpg"
                 alt="Student working on laptop"
                 fill
                 className="object-cover"

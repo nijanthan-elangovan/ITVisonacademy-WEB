@@ -54,7 +54,7 @@ export default function AboutPage() {
           </div>
           <motion.div variants={fadeUp} className="relative h-64 overflow-hidden rounded-[1.8rem] border border-white/15 bg-white/10 shadow-[0_24px_70px_rgba(9,20,32,0.2)]">
             <Image
-              src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&q=80"
+              src="/images/photos/about-team.jpg"
               alt="ITVision Academy team"
               fill
               className="object-cover"
@@ -94,7 +94,7 @@ export default function AboutPage() {
           </div>
           <motion.div variants={scaleIn} className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(15,23,42,0.15)]">
             <Image
-              src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&q=80"
+              src="/images/photos/about-team.jpg"
               alt="Diverse team collaborating on tech projects"
               fill className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -187,7 +187,7 @@ export default function AboutPage() {
             </div>
             <motion.div variants={scaleIn} className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_30px_80px_rgba(9,20,32,0.3)]">
               <Image
-                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80"
+                src="/images/photos/classroom.jpg"
                 alt="Students in a classroom"
                 fill className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"

@@ -20,11 +20,9 @@ async function ensureLeadSchema() {
     )
   `);
 
-  await pool.query(`
-    ALTER TABLE leads ADD COLUMN IF NOT EXISTS current_role VARCHAR(255);
-    ALTER TABLE leads ADD COLUMN IF NOT EXISTS target_role VARCHAR(255);
-    ALTER TABLE leads ADD COLUMN IF NOT EXISTS linkedin_url TEXT;
-  `);
+  await pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS current_role VARCHAR(255)`);
+  await pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS target_role VARCHAR(255)`);
+  await pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS linkedin_url TEXT`);
 }
 
 type LeadPayload = {
