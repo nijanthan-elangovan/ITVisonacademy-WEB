@@ -5,12 +5,12 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import {
+  BrainCircuit,
   ChevronDown,
   CirclePlay,
   GraduationCap,
   Grid2x2,
   Lock,
-  MapPin,
   MonitorPlay,
   MoveUpRight,
   Search,
@@ -262,18 +262,18 @@ export default function Home() {
               </motion.div>
               <motion.h2
                 variants={fadeUp}
-                className="mt-5 max-w-[700px] text-3xl font-extrabold uppercase leading-[0.95] tracking-[-0.06em] sm:text-4xl lg:text-[4.4rem]"
+                className="mt-5 max-w-[700px] text-[2.35rem] font-extrabold leading-[0.94] tracking-[-0.055em] sm:text-[3rem] lg:text-[4rem]"
               >
                 Mid-level is not a ceiling. It&apos;s a launchpad.
               </motion.h2>
               <motion.p
                 variants={fadeUp}
-                className="mt-5 max-w-[640px] text-sm leading-7 text-white/78 sm:text-base"
+                className="mt-5 max-w-[640px] text-[0.98rem] leading-8 text-white/78 sm:text-[1.02rem]"
               >
                 A hands-on readiness program for Program Managers, Technical
-                Managers, TPMs, and TPGMs who want sharper market positioning,
-                role-specific interview prep, AI readiness, and direct
-                mentorship.
+                Managers, TPMs, and TPGMs who want stronger positioning,
+                role-specific interview prep, practical AI readiness, and
+                direct mentoring.
               </motion.p>
               <motion.div
                 variants={fadeUp}
@@ -289,7 +289,7 @@ export default function Home() {
                   href="/launchpad#launchpad-signup"
                   className="inline-flex h-12 items-center justify-center rounded-xl border border-white/20 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/16"
                 >
-                  Sign up now
+                  Apply now
                 </Link>
               </motion.div>
             </div>
@@ -305,10 +305,10 @@ export default function Home() {
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[#2ca9df]">
                   <GraduationCap className="h-5 w-5" />
                 </div>
-                <h3 className="mt-4 text-lg font-bold">
+                <h3 className="mt-4 text-[1.12rem] font-bold tracking-[-0.02em]">
                   Learn from MIT Solve award winners
                 </h3>
-                <p className="mt-2 text-sm leading-7 text-white/72">
+                <p className="mt-2 text-[0.96rem] leading-8 text-white/72">
                   Built for professionals who have already proven themselves and
                   now need the right framing, polish, and market-ready story.
                 </p>
@@ -318,11 +318,12 @@ export default function Home() {
                 className="rounded-[1.6rem] border border-white/10 bg-[#ecf7fd] p-5 text-[#10263a]"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[#2ca9df]">
-                  <MapPin className="h-5 w-5" />
+                  <BrainCircuit className="h-5 w-5" />
                 </div>
-                <h3 className="mt-4 text-lg font-bold">Frisco headquarters</h3>
-                <p className="mt-2 text-sm leading-7 text-[#4b5563]">
-                  9300 John Hickman Parkway, #1104, Frisco, TX.
+                <h3 className="mt-4 text-[1.12rem] font-bold tracking-[-0.02em]">AI + mentoring focus</h3>
+                <p className="mt-2 text-[0.96rem] leading-8 text-[#4b5563]">
+                  Built around AI readiness, clearer executive presence, and
+                  direct coaching for your next role.
                 </p>
               </motion.div>
             </motion.div>

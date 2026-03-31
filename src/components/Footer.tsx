@@ -46,7 +46,6 @@ export default function Footer() {
           <ul className="mt-4 space-y-3 text-sm text-white/55">
             {[
               { label: "Home", href: "/" },
-              { label: "Launchpad", href: "/launchpad" },
               { label: "About Us", href: "/about" },
               { label: "Courses", href: "/courses" },
               { label: "Contact Us", href: "/contact" },
