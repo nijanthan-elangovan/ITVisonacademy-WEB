@@ -1,74 +1,62 @@
-import type { Metadata } from "next";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   ArrowUpRight,
   BrainCircuit,
-  Building2,
-  CirclePlay,
-  Megaphone,
   Sparkles,
   Target,
   Trophy,
+  Megaphone,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import LaunchpadSignupForm from "@/components/LaunchpadSignupForm";
-
-export const metadata: Metadata = {
-  title: "Launchpad",
-  description:
-    "Launchpad is ITVision Academy's hands-on readiness program for Program Managers, Technical Managers, TPMs, TPGMs, and technical leaders ready for their next move.",
-  alternates: {
-    canonical: "/launchpad",
-  },
-};
+import {
+  fadeUp,
+  stagger,
+  scaleIn,
+  slideInLeft,
+  slideInRight,
+} from "@/components/animations";
 
 const outcomes = [
   {
     icon: Target,
-    title: "Career Positioning & Personal Brand Overhaul",
+    title: "Position Yourself",
     description:
-      "Rebuild how the market reads you so your background sounds sharper, more intentional, and more aligned to the roles you want next.",
+      "We rebuild how the market sees you — resume, LinkedIn, and interview story.",
     details: [
-      "A tighter career story for your resume, LinkedIn, and interview introductions",
-      "Role-aligned positioning for Program Manager, TPM, Tech Manager, and Tech PM paths",
-      "Stronger articulation of scope, influence, metrics, and leadership signal",
-      "A clearer market-facing brand that reflects where you are going, not just where you have been",
+      "A tighter career narrative aligned to PM, TPM, and Tech Manager roles",
+      "Stronger articulation of scope, influence, and leadership signal",
+      "A market-facing brand that reflects where you're going",
     ],
   },
   {
     icon: Megaphone,
-    title: "Role-Specific Interview & AI Readiness",
+    title: "Interview Ready",
     description:
-      "Prepare for modern hiring expectations with practical role-based interview prep and hands-on AI fluency that makes you more credible in the room.",
+      "Role-specific prep for PM, TPM, and Tech Manager interviews. Plus AI fluency that makes you more credible.",
     details: [
-      "Interview preparation built around PM, TPM, Tech Manager, and Tech PM expectations",
-      "Stronger answers for execution, ambiguity, stakeholder management, and technical depth",
-      "AI readiness that helps you talk confidently about tools, workflows, and productivity gains",
-      "Portfolio and proof-point framing that turns experience into evidence",
+      "Prep built around execution, ambiguity, and stakeholder management",
+      "AI readiness that helps you talk confidently about tools and workflows",
+      "Portfolio framing that turns experience into evidence",
     ],
   },
   {
     icon: Sparkles,
-    title: "Mentorship & Networking",
+    title: "Get Mentored",
     description:
-      "Get direct access to mentors who understand the roles you are targeting and can help you move with more clarity and less guesswork.",
+      "Direct access to mentors already doing the work you want. No theory — real hiring insight.",
     details: [
-      "1-on-1 guidance from people who are already doing the work you want to step into",
-      "Feedback on your positioning, communication style, and decision-making story",
-      "Practical perspective on where to focus, what to improve, and what to stop overthinking",
-      "Networking and mentorship that feels grounded in real hiring and real leadership work",
+      "1-on-1 guidance from people in the roles you're targeting",
+      "Feedback on positioning, communication, and decision-making",
+      "Practical perspective on where to focus and what to stop overthinking",
     ],
   },
-];
-
-const audience = [
-  "Aspiring Program Managers and Technical Program Managers",
-  "Existing mid-level Program Managers, Technical Managers, and TPMs",
-  "Technical Product Managers and technical leaders refining their next move",
-  "Professionals who have already proven themselves and need sharper market positioning",
 ];
 
 export default function LaunchpadPage() {
@@ -76,28 +64,27 @@ export default function LaunchpadPage() {
     <main className="min-h-screen bg-[#e7ecea] text-[#10263a]">
       <Header />
 
-      <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,#7fd6ff_0%,#2ca9df_26%,#173d63_62%,#0c2034_100%)] px-5 py-12 text-white sm:px-10 sm:py-16 lg:px-12 lg:py-20">
+      {/* Hero */}
+      <motion.section
+        initial="hidden"
+        animate="visible"
+        variants={stagger}
+        className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,#7fd6ff_0%,#2ca9df_26%,#173d63_62%,#0c2034_100%)] px-5 py-12 text-white sm:px-10 sm:py-16 lg:px-12 lg:py-20"
+      >
         <div className="pointer-events-none absolute inset-0 opacity-20">
           <div className="absolute -left-10 top-10 h-56 w-56 rounded-full bg-white blur-3xl" />
           <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#7fd6ff] blur-3xl" />
           <div className="absolute bottom-0 left-1/3 h-40 w-40 rounded-full bg-[#16324f] blur-3xl" />
         </div>
         <div className="mx-auto grid max-w-[1240px] gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <div>
+          <motion.div variants={slideInLeft}>
             <SectionEyebrow>Focused Program</SectionEyebrow>
             <h1 className="mt-5 max-w-[760px] text-[2.7rem] font-extrabold leading-[0.92] tracking-[-0.055em] sm:text-[3.4rem] lg:text-[4.8rem]">
               Mid-level is not a ceiling. It&apos;s a launchpad.
             </h1>
             <p className="mt-6 max-w-[720px] text-[1rem] leading-8 text-white/78 sm:text-[1.08rem]">
-              A hands-on readiness program for Program Managers, Technical
-              Managers, TPMs, TPGMs, and technical leaders at every level and
-              every stage.
-            </p>
-            <p className="mt-5 max-w-[720px] text-[0.98rem] leading-8 text-white/70 sm:text-[1.04rem]">
-              You&apos;ve proved it. Now it&apos;s time to prove it louder. The
-              experience is real, the skills are sharp, and Launchpad is built
-              to help you show up with sharper positioning, stronger AI fluency,
-              and the kind of mentoring that turns experience into momentum.
+              Built for PMs, TPMs, and tech leaders ready to land their next
+              role.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -115,14 +102,17 @@ export default function LaunchpadPage() {
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="grid gap-4">
-            <div className="group relative overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 p-6 backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(5,20,34,0.25)]">
+          <motion.div variants={slideInRight} className="grid gap-4">
+            <motion.div
+              whileHover={{ y: -4 }}
+              className="group relative overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 p-6 backdrop-blur transition duration-300 hover:shadow-[0_28px_70px_rgba(5,20,34,0.25)]"
+            >
               <div className="absolute inset-0">
                 <Image
-                  src="/images/hero-collaboration.svg"
-                  alt="Launchpad program visual"
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
+                  alt="Team collaborating around a table"
                   fill
                   className="object-cover opacity-30 transition duration-700 group-hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -140,8 +130,7 @@ export default function LaunchpadPage() {
                       Best For
                     </p>
                     <p className="mt-3 text-[1.15rem] font-bold leading-8 tracking-[-0.02em] text-white">
-                      Managers and technical leaders ready to reposition, interview
-                      stronger, and level up with credibility.
+                      Tech leaders ready to reposition and interview stronger.
                     </p>
                   </div>
                   <div className="rounded-[1.5rem] bg-[#081a2c]/60 p-5 backdrop-blur">
@@ -151,8 +140,7 @@ export default function LaunchpadPage() {
                     <div className="mt-3 flex items-start gap-3 text-white">
                       <BrainCircuit className="mt-1 h-5 w-5 shrink-0 text-[#7fd6ff]" />
                       <p className="text-[1.15rem] font-bold leading-8 tracking-[-0.02em]">
-                        AI readiness, leadership positioning, and direct mentoring
-                        for the exact roles you want next.
+                        AI readiness, positioning, and direct mentoring.
                       </p>
                     </div>
                   </div>
@@ -169,46 +157,45 @@ export default function LaunchpadPage() {
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="group rounded-[2rem] border border-white/15 bg-[#ecf7fd] p-6 text-[#10263a] shadow-[0_24px_70px_rgba(6,21,36,0.2)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(6,21,36,0.25)]">
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#2ca9df]">
-                How can we help?
-              </p>
-              <p className="mt-4 text-[1.08rem] leading-8 text-[#334155]">
-                Launchpad is built for aspiring and established Program
-                Managers, Technical Managers, Technical Product Managers, and
-                Technical Program Managers who need clearer differentiation,
-                sharper executive presence, and support that translates into
-                real interview and career momentum.
-              </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="px-5 pb-4 sm:px-10 lg:px-12">
+      {/* Image cards */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={stagger}
+        className="px-5 pb-4 sm:px-10 lg:px-12"
+      >
         <div className="mx-auto grid max-w-[1240px] gap-4 md:grid-cols-3">
           {[
             {
-              image: "/images/team-learning.svg",
-              title: "Career storytelling that feels executive-ready",
-              text: "Sharper positioning for leaders who need their experience to read with more clarity and authority.",
+              image:
+                "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80",
+              title: "Career storytelling that sounds executive-ready",
+              text: "Sharper positioning so your experience reads with clarity and authority.",
             },
             {
-              image: "/images/student-success.svg",
-              title: "Interview confidence built around real outcomes",
-              text: "Role-specific preparation that helps you communicate scope, judgment, and technical fluency more convincingly.",
+              image:
+                "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80",
+              title: "Interview confidence built on real outcomes",
+              text: "Communicate scope, judgment, and technical fluency more convincingly.",
             },
             {
-              image: "/images/contact-office.svg",
-              title: "Professional polish without the empty buzzwords",
-              text: "A cleaner, more market-ready presence across your profile, interviews, and networking conversations.",
+              image:
+                "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
+              title: "Professional polish without the buzzwords",
+              text: "A cleaner, market-ready presence across your profile and conversations.",
             },
           ].map((item) => (
-            <article
+            <motion.article
               key={item.title}
-              className="group relative overflow-hidden rounded-[1.8rem] bg-[#10263a] shadow-[0_18px_50px_rgba(15,23,42,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_65px_rgba(15,23,42,0.18)]"
+              variants={fadeUp}
+              whileHover={{ y: -4 }}
+              className="group relative overflow-hidden rounded-[1.8rem] bg-[#10263a] shadow-[0_18px_50px_rgba(15,23,42,0.12)] transition duration-300 hover:shadow-[0_24px_65px_rgba(15,23,42,0.18)]"
             >
               <div className="relative h-64">
                 <Image
@@ -228,32 +215,46 @@ export default function LaunchpadPage() {
                   {item.text}
                 </p>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className="px-5 py-10 sm:px-10 sm:py-14 lg:px-12">
+      {/* Outcomes */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={stagger}
+        className="px-5 py-10 sm:px-10 sm:py-14 lg:px-12"
+      >
         <div className="mx-auto max-w-[1240px]">
-          <div className="rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_rgba(15,23,42,0.06)] ring-1 ring-black/5">
+          <motion.div
+            variants={scaleIn}
+            className="rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_rgba(15,23,42,0.06)] ring-1 ring-black/5"
+          >
             <h2 className="text-[2.1rem] font-extrabold leading-[0.95] tracking-[-0.05em] text-[#2ca9df] sm:text-[2.8rem] lg:text-[3.25rem]">
               What you&apos;ll walk away with
             </h2>
             <p className="mt-4 max-w-[760px] text-[0.98rem] leading-8 text-[#5b6773]">
-              Launchpad is built to leave you with clearer positioning,
-              stronger interview readiness, better AI fluency, and mentoring
-              that turns vague ambition into a concrete next move.
+              Clearer positioning, stronger interview readiness, and mentoring
+              that turns ambition into a concrete next move.
             </p>
             <div className="mt-8 grid gap-4 lg:grid-cols-3">
               {outcomes.map(({ icon: Icon, title, description, details }) => (
-                <article
+                <motion.article
                   key={title}
-                  className="group rounded-[1.7rem] border border-[#dce7ee] bg-[linear-gradient(135deg,#f8fbfd_0%,#eef7fb_100%)] p-5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(44,169,223,0.12)]"
+                  variants={fadeUp}
+                  whileHover={{ y: -4 }}
+                  className="group rounded-[1.7rem] border border-[#dce7ee] bg-[linear-gradient(135deg,#f8fbfd_0%,#eef7fb_100%)] p-5 transition duration-300 hover:shadow-[0_24px_60px_rgba(44,169,223,0.12)]"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-[#2ca9df] shadow-[0_10px_30px_rgba(44,169,223,0.18)] transition duration-300 group-hover:scale-105">
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-[#2ca9df] shadow-[0_10px_30px_rgba(44,169,223,0.18)]"
+                    >
                       <Icon className="h-5 w-5" />
-                    </div>
+                    </motion.div>
                     <div>
                       <h3 className="text-[1.32rem] font-bold leading-8 tracking-[-0.03em] text-[#10263a]">
                         {title}
@@ -274,46 +275,30 @@ export default function LaunchpadPage() {
                       </ul>
                     </div>
                   </div>
-                </article>
+                </motion.article>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="px-5 pb-6 sm:px-10 sm:pb-10 lg:px-12">
-        <div className="mx-auto max-w-[1240px]">
-          <div className="rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_rgba(15,23,42,0.06)] ring-1 ring-black/5">
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#edf7fd] px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-[#2ca9df]">
-              <Building2 className="h-4 w-4" />
-              Who it serves
-            </div>
-            <ul className="mt-6 grid gap-4 md:grid-cols-2">
-              {audience.map((item) => (
-                <li
-                  key={item}
-                  className="group rounded-[1.4rem] border border-[#e4ebf1] bg-[#f8fbfd] px-5 py-4 text-sm leading-7 text-[#475569] transition duration-300 hover:-translate-y-0.5 hover:border-[#bfe4f4] hover:bg-white hover:shadow-[0_18px_40px_rgba(15,23,42,0.06)]"
-                >
-                  <div className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#ecf7fd] text-[#2ca9df] transition duration-300 group-hover:scale-105">
-                    <CirclePlay className="h-4 w-4" />
-                  </div>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section
+      {/* Signup form */}
+      <motion.section
         id="launchpad-signup"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={stagger}
         className="px-5 pb-6 sm:px-10 sm:pb-10 lg:px-12"
       >
         <div className="mx-auto grid max-w-[1240px] gap-6 lg:grid-cols-[0.84fr_1.16fr]">
-          <div className="relative overflow-hidden rounded-[2rem] bg-[#10263a] p-7 text-white shadow-[0_24px_70px_rgba(15,23,42,0.12)]">
+          <motion.div
+            variants={slideInLeft}
+            className="relative overflow-hidden rounded-[2rem] bg-[#10263a] p-7 text-white shadow-[0_24px_70px_rgba(15,23,42,0.12)]"
+          >
             <div className="absolute inset-0 opacity-20">
               <Image
-                src="/images/classroom.svg"
+                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80"
                 alt=""
                 fill
                 className="object-cover"
@@ -322,38 +307,41 @@ export default function LaunchpadPage() {
             </div>
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,38,58,0.82)_0%,rgba(16,38,58,0.98)_100%)]" />
             <div className="relative">
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#7fd6ff]">
-              Signup
-            </p>
-            <h2 className="mt-4 text-[2rem] font-extrabold leading-tight tracking-[-0.045em] sm:text-[2.35rem]">
-              Tell us where you are and where you want to go.
-            </h2>
-            <p className="mt-4 text-[0.98rem] leading-8 text-white/70">
-              Share your current role, target role, and where you want support.
-              We&apos;ll save your interest in the database and send confirmation
-              to both you and{" "}
-              <span className="font-semibold text-white">
-                ad@itvisionacademy.com
-              </span>
-              .
-            </p>
-            <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5">
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/55">
-                What happens next
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#7fd6ff]">
+                Signup
               </p>
-              <p className="mt-3 text-[0.98rem] leading-8 text-white/80">
-                We review your goals, match you to the right mentoring and prep
-                priorities, and reach out with the next step for Launchpad.
+              <h2 className="mt-4 text-[2rem] font-extrabold leading-tight tracking-[-0.045em] sm:text-[2.35rem]">
+                Tell us where you are and where you want to go.
+              </h2>
+              <p className="mt-4 text-[0.98rem] leading-8 text-white/70">
+                Share your current role, target role, and where you want
+                support. We&apos;ll save your interest and send confirmation to
+                both you and{" "}
+                <span className="font-semibold text-white">
+                  ad@itvisionacademy.com
+                </span>
+                .
               </p>
+              <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5">
+                <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/55">
+                  What happens next
+                </p>
+                <p className="mt-3 text-[0.98rem] leading-8 text-white/80">
+                  We review your goals, match you to the right mentoring and
+                  prep priorities, and reach out with your next step.
+                </p>
+              </div>
             </div>
-            </div>
-          </div>
+          </motion.div>
 
-          <div className="rounded-[2rem] bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)] ring-1 ring-black/5 transition duration-300 hover:shadow-[0_28px_75px_rgba(15,23,42,0.12)] sm:p-8">
+          <motion.div
+            variants={slideInRight}
+            className="rounded-[2rem] bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)] ring-1 ring-black/5 transition duration-300 hover:shadow-[0_28px_75px_rgba(15,23,42,0.12)] sm:p-8"
+          >
             <LaunchpadSignupForm />
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       <Footer />
     </main>

@@ -69,8 +69,8 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   icons: {
-    icon: ["/favicon.ico", "/icon"],
-    shortcut: "/favicon.ico",
+    icon: "/icon",
+    apple: "/icon",
   },
   alternates: {
     canonical: BASE_URL,

@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 import {
   BrainCircuit,
   ChevronDown,
@@ -20,7 +20,7 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/SectionEyebrow";
-import { fadeUp, stagger, scaleIn } from "@/components/animations";
+import { fadeUp, stagger, scaleIn, slideInLeft, slideInRight } from "@/components/animations";
 
 /* ── data ── */
 type CourseCardModel = {
@@ -109,6 +109,40 @@ const fallbackFaqs: FaqModel[] = [
   { question: "How can I choose the right course?", answer: "Use the contact form and our team will recommend a track based on your background and career goal." },
 ];
 
+/* ── helpers ── */
+
+function useCountUp(target: number, duration = 1500) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    if (!target || hasAnimated.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          const start = performance.now();
+          const step = (now: number) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.round(eased * target));
+            if (progress < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target, duration]);
+
+  return { count, ref };
+}
+
 /* ── components ── */
 
 function CourseCard({ category, title, author, lessons, price, oldPrice, rating, imageUrl, handle }: CourseCardModel) {
@@ -117,18 +151,18 @@ function CourseCard({ category, title, author, lessons, price, oldPrice, rating,
     <motion.article
       variants={fadeUp}
       whileHover={{ y: -6, transition: { duration: 0.25 } }}
-      className="group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]"
+      className="group h-full flex flex-col cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_rgba(15,23,42,0.12)]"
     >
       <div className="relative h-40 w-full overflow-hidden bg-[#f0f4f8] sm:h-44">
         <Image src={resolvedImage} alt={title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
       </div>
-      <div className="p-4 sm:p-5">
+      <div className="flex flex-col flex-1 p-4 sm:p-5">
         <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#a0aab5]">{category}</p>
-        <h3 className="mt-2 text-[0.95rem] font-bold leading-snug text-[#1c2635] sm:mt-3 sm:text-[1.02rem] sm:leading-6">{title}</h3>
+        <h3 className="mt-2 min-h-[2.5rem] text-[0.95rem] font-bold leading-snug text-[#1c2635] line-clamp-2 sm:mt-3 sm:text-[1.02rem] sm:leading-6">{title}</h3>
         <div className="mt-3 flex items-center justify-between text-xs text-[#7f8b97] sm:mt-4">
           <span>{author}</span><span>{lessons}</span>
         </div>
-        <div className="mt-4 flex items-center justify-between sm:mt-5">
+        <div className="mt-auto pt-4 flex items-center justify-between sm:pt-5">
           <div className="flex items-center gap-2">
             <span className="text-sm font-bold text-[#2ca9df]">{price}</span>
             {oldPrice && oldPrice !== price && <span className="text-xs text-[#b6bfc8] line-through">{oldPrice}</span>}
@@ -152,6 +186,9 @@ export default function Home() {
   const [stats, setStats] = useState({ products: 0, customers: 0 });
   const [searchValue, setSearchValue] = useState("");
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
+
+  const productsCounter = useCountUp(stats.products);
+  const customersCounter = useCountUp(stats.customers);
 
   useEffect(() => {
     let cancelled = false;
@@ -216,7 +253,7 @@ export default function Home() {
             <div className="absolute -right-4 -top-4 hidden h-56 w-56 rounded-full bg-[#79d3f7]/20 blur-3xl sm:block" />
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_30px_80px_rgba(9,20,32,0.35)] sm:rounded-3xl">
               <Image
-                src="/images/hero-collaboration.svg"
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
                 alt="Students collaborating on tech projects"
                 fill
                 className="object-cover"
@@ -227,15 +264,15 @@ export default function Home() {
             </div>
             {/* Floating card */}
             <motion.div
-              animate={{ y: [0, -8, 0] }}
+              animate={{ y: [0, -8, 0], rotate: [0, 1, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="absolute -bottom-4 -left-2 rounded-xl bg-white px-4 py-3 shadow-[0_16px_40px_rgba(15,23,42,0.18)] sm:-left-8 sm:bottom-4"
             >
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
-                  <Image src="/images/avatar-1.svg" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white" />
-                  <Image src="/images/avatar-2.svg" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white" />
-                  <Image src="/images/avatar-3.svg" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white" />
+                  <Image src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&q=80" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white object-cover" />
+                  <Image src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&q=80" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white object-cover" />
+                  <Image src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=96&q=80" alt="" width={32} height={32} className="h-8 w-8 rounded-full ring-2 ring-white object-cover" />
                 </div>
                 <div>
                   <p className="text-xs font-bold text-[#1f2937]">2,500+ Students</p>
@@ -374,7 +411,7 @@ export default function Home() {
           <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
             <motion.div variants={scaleIn} className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
               <Image
-                src="/images/team-learning.svg"
+                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80"
                 alt="Team collaborating on data projects"
                 fill
                 className="object-cover"
@@ -394,8 +431,14 @@ export default function Home() {
                 Whether you&apos;re switching careers or sharpening existing skills, our curated learning paths give you a clear roadmap from beginner to job-ready.
               </motion.p>
               <motion.div variants={stagger} className="mt-5 flex flex-wrap gap-2 sm:mt-6 sm:gap-3">
-                {skillTags.map((tag) => (
-                  <motion.span key={tag} variants={fadeUp} whileHover={{ scale: 1.06, backgroundColor: "rgba(255,255,255,0.14)" }}
+                {skillTags.map((tag, i) => (
+                  <motion.span
+                    key={tag}
+                    variants={fadeUp}
+                    custom={i}
+                    whileHover={{ scale: 1.06, backgroundColor: "rgba(255,255,255,0.14)" }}
+                    animate={{ y: [0, -3, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
                     className="cursor-default rounded-xl border border-white/12 bg-white/6 px-3 py-1.5 text-xs text-white/82 transition-colors sm:px-4 sm:py-2 sm:text-sm">
                     {tag}
                   </motion.span>
@@ -450,26 +493,26 @@ export default function Home() {
               Our platform is designed around outcomes, not hours. Every course connects to real career milestones with mentorship, community, and accountability built in.
             </motion.p>
             <motion.div variants={fadeUp} className="mt-6 flex flex-wrap gap-8 sm:mt-8 sm:gap-10">
-              <div>
-                <div className="text-3xl font-extrabold text-[#16202e] sm:text-4xl">{stats.products.toLocaleString()}</div>
+              <div ref={productsCounter.ref}>
+                <div className="text-3xl font-extrabold text-[#16202e] sm:text-4xl">{productsCounter.count.toLocaleString()}</div>
                 <div className="mt-1 text-sm text-[#7d8793] sm:mt-2">Courses in Catalog</div>
               </div>
-              <div>
-                <div className="text-3xl font-extrabold text-[#16202e] sm:text-4xl">{stats.customers.toLocaleString()}</div>
+              <div ref={customersCounter.ref}>
+                <div className="text-3xl font-extrabold text-[#16202e] sm:text-4xl">{customersCounter.count.toLocaleString()}</div>
                 <div className="mt-1 text-sm text-[#7d8793] sm:mt-2">Learner Records</div>
               </div>
             </motion.div>
           </div>
           <motion.div variants={scaleIn} className="relative aspect-[4/3] min-h-[240px] overflow-hidden rounded-2xl sm:min-h-[320px]">
             <Image
-              src="/images/student-success.svg"
+              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80"
               alt="Students celebrating success"
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
             <motion.div
-              animate={{ y: [0, -6, 0] }}
+              animate={{ y: [0, -6, 0], rotate: [0, 1, 0] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
               className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-[#1f2937] shadow-[0_16px_40px_rgba(15,23,42,0.14)] sm:bottom-6 sm:right-8 sm:py-3"
             >
@@ -498,11 +541,27 @@ export default function Home() {
                   aria-expanded={openFaqIndex === index}
                 >
                   {faq.question}
-                  <ChevronDown className={`h-4 w-4 shrink-0 text-[#7f8b97] transition-transform duration-300 ${openFaqIndex === index ? "rotate-180" : ""}`} />
+                  <motion.span
+                    animate={{ rotate: openFaqIndex === index ? 180 : 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    <ChevronDown className="h-4 w-4 shrink-0 text-[#7f8b97]" />
+                  </motion.span>
                 </button>
-                {openFaqIndex === index && (
-                  <p className="pb-4 text-sm leading-7 text-[#74808b] sm:pb-5">{faq.answer}</p>
-                )}
+                <AnimatePresence initial={false}>
+                  {openFaqIndex === index && (
+                    <motion.div
+                      key="faq-content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <p className="pb-4 text-sm leading-7 text-[#74808b] sm:pb-5">{faq.answer}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </motion.div>
           ))}
@@ -547,7 +606,7 @@ export default function Home() {
             </div>
             <motion.div variants={scaleIn} className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_30px_80px_rgba(9,20,32,0.3)]">
               <Image
-                src="/images/laptop-study.svg"
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80"
                 alt="Student working on laptop"
                 fill
                 className="object-cover"
