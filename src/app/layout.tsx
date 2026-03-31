@@ -15,7 +15,7 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const BASE_URL = "https://new.itvisionacademy.com";
+const BASE_URL = "https://itvisionacademy.com";
 
 export const viewport: Viewport = {
   width: "device-width",

@@ -16,7 +16,7 @@
 - **Process Manager:** PM2 (app name: `itvision`, working dir: `/home/ubuntu/itvision`)
 - **Reverse Proxy:** Nginx → localhost:3000
 - **SSL:** Let's Encrypt via Certbot (auto-renews)
-- **CDN/DNS:** Cloudflare (domain: `new.itvisionacademy.com`)
+- **CDN/DNS:** Cloudflare (domain: `itvisionacademy.com`)
 - **Swap:** 2GB swapfile at `/swapfile` (required — server only has 911MB RAM)
 
 ## CI/CD

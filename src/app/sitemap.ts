@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE = "https://new.itvisionacademy.com";
+const BASE = "https://itvisionacademy.com";
 
 const courseSlugs = [
   "sql-basic",

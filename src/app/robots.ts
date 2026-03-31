@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://new.itvisionacademy.com/sitemap.xml",
+    sitemap: "https://itvisionacademy.com/sitemap.xml",
   };
 }

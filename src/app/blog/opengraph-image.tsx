@@ -65,7 +65,7 @@ export default function Image() {
           </div>
         </div>
         <div style={{ fontSize: 18, color: "rgba(255,255,255,0.5)" }}>
-          new.itvisionacademy.com/blog
+          itvisionacademy.com/blog
         </div>
       </div>
     ),

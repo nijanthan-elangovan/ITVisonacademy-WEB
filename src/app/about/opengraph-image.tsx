@@ -75,7 +75,7 @@ export default function Image() {
         >
           <span>Frisco, TX</span>
           <span>|</span>
-          <span>new.itvisionacademy.com/about</span>
+          <span>itvisionacademy.com/about</span>
         </div>
       </div>
     ),

@@ -182,7 +182,7 @@ async function sendLeadEmail(lead: {
                 Source: ${lead.source === "course" ? "Course Page Inquiry" : "Contact Form"} &bull; ITVision Academy Website
               </p>
               <p style="margin:4px 0 0;color:#9ca3af;font-size:11px;">
-                new.itvisionacademy.com
+                itvisionacademy.com
               </p>
             </td>
           </tr>

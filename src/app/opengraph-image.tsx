@@ -116,7 +116,7 @@ export default function Image() {
               color: "rgba(255,255,255,0.6)",
             }}
           >
-            <span>new.itvisionacademy.com</span>
+            <span>itvisionacademy.com</span>
             <span>|</span>
             <span>(214) 727-2154</span>
           </div>
