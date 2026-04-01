@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -38,19 +38,6 @@ type LeadPayload = {
   linkedinUrl?: string;
 };
 
-/* ── Amazon SES SMTP transport ── */
-function getTransporter() {
-  return nodemailer.createTransport({
-    host: process.env.SES_SMTP_HOST || "email-smtp.eu-north-1.amazonaws.com",
-    port: Number(process.env.SES_SMTP_PORT) || 587,
-    secure: false,
-    auth: {
-      user: process.env.SES_SMTP_USER!,
-      pass: process.env.SES_SMTP_PASS!,
-    },
-  });
-}
-
 function escapeHtml(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -86,16 +73,16 @@ async function sendMail({
   html: string;
   replyTo?: string;
 }) {
-  if (!process.env.SES_SMTP_USER) {
-    console.warn("SES credentials not configured — skipping email notification");
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("Resend API key not configured — skipping email notification");
     return;
   }
 
-  const fromAddr = process.env.SES_FROM_EMAIL || "admin@itvisionacademy.com";
-  const transporter = getTransporter();
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const fromAddr = process.env.RESEND_FROM_EMAIL || "ITVision Academy <admin@itvisionacademy.com>";
 
-  await transporter.sendMail({
-    from: `"ITVision Academy" <${fromAddr}>`,
+  await resend.emails.send({
+    from: fromAddr,
     to,
     replyTo: replyTo || undefined,
     subject,

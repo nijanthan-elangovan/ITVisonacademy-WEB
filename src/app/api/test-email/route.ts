@@ -1,41 +1,36 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    if (!process.env.SES_SMTP_USER || !process.env.SES_SMTP_PASS) {
+    if (!process.env.RESEND_API_KEY) {
       return NextResponse.json(
-        { ok: false, error: "SES credentials not configured" },
+        { ok: false, error: "Resend API key not configured" },
         { status: 500 }
       );
     }
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SES_SMTP_HOST || "email-smtp.eu-north-1.amazonaws.com",
-      port: Number(process.env.SES_SMTP_PORT) || 587,
-      secure: false,
-      auth: {
-        user: process.env.SES_SMTP_USER,
-        pass: process.env.SES_SMTP_PASS,
-      },
-    });
-
-    const fromAddr = process.env.SES_FROM_EMAIL || "admin@itvisionacademy.com";
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const fromAddr = process.env.RESEND_FROM_EMAIL || "ITVision Academy <admin@itvisionacademy.com>";
     const toAddr = "nijanthan.work@gmail.com";
 
-    await transporter.sendMail({
-      from: `"ITVision Academy" <${fromAddr}>`,
+    const { error } = await resend.emails.send({
+      from: fromAddr,
       to: toAddr,
       subject: "ITVision Academy — Email Service Test",
       html: `
         <h2>Email Service Working!</h2>
-        <p>This is a test email sent via Amazon SES from ITVision Academy.</p>
+        <p>This is a test email sent via Resend from ITVision Academy.</p>
         <p>Timestamp: ${new Date().toISOString()}</p>
       `,
     });
+
+    if (error) {
+      return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    }
 
     return NextResponse.json({ ok: true, message: `Test email sent to ${toAddr}` });
   } catch (err) {
