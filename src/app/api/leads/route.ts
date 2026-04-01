@@ -5,8 +5,9 @@ import nodemailer from "nodemailer";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-async function ensureLeadSchema() {
-  await pool.query(`
+/* ── run once at module load ── */
+const schemaReady = pool
+  .query(`
     CREATE TABLE IF NOT EXISTS leads (
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
@@ -18,12 +19,11 @@ async function ensureLeadSchema() {
       source VARCHAR(50) DEFAULT 'website',
       created_at TIMESTAMPTZ DEFAULT NOW()
     )
-  `);
-
-  await pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS current_role VARCHAR(255)`);
-  await pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS target_role VARCHAR(255)`);
-  await pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS linkedin_url TEXT`);
-}
+  `)
+  .then(() => pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS current_role VARCHAR(255)`))
+  .then(() => pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS target_role VARCHAR(255)`))
+  .then(() => pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS linkedin_url TEXT`))
+  .catch((err) => console.error("Schema init error:", err));
 
 type LeadPayload = {
   name: string;
@@ -271,7 +271,7 @@ async function sendLeadEmails(lead: LeadPayload) {
 
 export async function POST(req: NextRequest) {
   try {
-    await ensureLeadSchema();
+    await schemaReady;
 
     const body = (await req.json()) as Partial<LeadPayload>;
     const {
