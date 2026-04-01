@@ -171,89 +171,15 @@ function buildAdminEmail(lead: LeadPayload) {
   };
 }
 
-function buildUserConfirmationEmail(lead: LeadPayload) {
-  const safeName = escapeHtml(lead.name);
-  const safeCurrentRole = lead.currentRole
-    ? escapeHtml(lead.currentRole)
-    : "your current role";
-  const safeTargetRole = lead.targetRole
-    ? escapeHtml(lead.targetRole)
-    : "your target role";
-  const subject =
-    lead.source === "launchpad"
-      ? "Your Launchpad signup is confirmed"
-      : "We received your ITVision Academy inquiry";
-
-  return {
-    subject,
-    html: `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${subject}</title>
-</head>
-<body style="margin:0;padding:0;background-color:#eef4f8;font-family:'Segoe UI',Roboto,Arial,sans-serif;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:24px 0;background:#eef4f8;">
-    <tr>
-      <td align="center">
-        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:18px;overflow:hidden;">
-          <tr>
-            <td style="padding:32px 40px;background:linear-gradient(135deg,#10263a 0%,#2ca9df 100%);">
-              <p style="margin:0;color:#9ddcf6;font-size:12px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;">ITVision Academy</p>
-              <h1 style="margin:14px 0 0;color:#ffffff;font-size:28px;line-height:1.1;">${lead.source === "launchpad" ? "Welcome to Launchpad" : "Thanks for reaching out"}</h1>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:32px 40px;">
-              <p style="margin:0;color:#10263a;font-size:16px;line-height:1.8;">Hi ${safeName},</p>
-              <p style="margin:18px 0 0;color:#475569;font-size:15px;line-height:1.9;">
-                ${
-                  lead.source === "launchpad"
-                    ? `We received your Launchpad signup for the move from ${safeCurrentRole} toward ${safeTargetRole}. Your details have been saved, and our team has also been notified at ad@itvisionacademy.com.`
-                    : "We received your submission and our team will review it shortly."
-                }
-              </p>
-              <p style="margin:18px 0 0;color:#475569;font-size:15px;line-height:1.9;">
-                Launchpad is built to sharpen your market positioning, strengthen role-specific interviews, improve AI readiness, and connect you with mentorship grounded in real practice.
-              </p>
-              <div style="margin-top:24px;padding:20px;border:1px solid #dce7ee;border-radius:14px;background:#f8fbfd;">
-                <p style="margin:0 0 10px;color:#10263a;font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Need to reach us sooner?</p>
-                <p style="margin:0;color:#475569;font-size:15px;line-height:1.8;">
-                  Phone: (214) 727-2154<br>
-                  Email: info@itvisionacademy.com<br>
-                  Address: 9300 John Hickman Parkway, #1104, Frisco, TX
-                </p>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>`,
-  };
-}
-
 async function sendLeadEmails(lead: LeadPayload) {
   const adminEmail = buildAdminEmail(lead);
-  const userEmail = buildUserConfirmationEmail(lead);
 
-  await Promise.all([
-    sendMail({
-      to: "ad@itvisionacademy.com",
-      subject: adminEmail.subject,
-      html: adminEmail.html,
-      replyTo: lead.email,
-    }),
-    sendMail({
-      to: lead.email,
-      subject: userEmail.subject,
-      html: userEmail.html,
-    }),
-  ]);
+  await sendMail({
+    to: "ad@itvisionacademy.com",
+    subject: adminEmail.subject,
+    html: adminEmail.html,
+    replyTo: lead.email,
+  });
 }
 
 export async function POST(req: NextRequest) {
