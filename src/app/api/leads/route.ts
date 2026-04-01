@@ -20,8 +20,8 @@ const schemaReady = pool
       created_at TIMESTAMPTZ DEFAULT NOW()
     )
   `)
-  .then(() => pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS current_role VARCHAR(255)`))
-  .then(() => pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS target_role VARCHAR(255)`))
+  .then(() => pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS "current_role" VARCHAR(255)`))
+  .then(() => pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS "target_role" VARCHAR(255)`))
   .then(() => pool.query(`ALTER TABLE leads ADD COLUMN IF NOT EXISTS linkedin_url TEXT`))
   .catch((err) => console.error("Schema init error:", err));
 
@@ -303,8 +303,8 @@ export async function POST(req: NextRequest) {
         subject,
         message,
         source,
-        current_role,
-        target_role,
+        "current_role",
+        "target_role",
         linkedin_url
       )
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,

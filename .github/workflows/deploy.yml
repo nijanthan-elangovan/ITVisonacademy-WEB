@@ -49,27 +49,15 @@ jobs:
 
       - name: Deploy on server
         uses: appleboy/ssh-action@v1
-        env:
-          SES_SMTP_HOST: ${{ secrets.SES_SMTP_HOST }}
-          SES_SMTP_PORT: ${{ secrets.SES_SMTP_PORT }}
-          SES_SMTP_USER: ${{ secrets.SES_SMTP_USER }}
-          SES_SMTP_PASS: ${{ secrets.SES_SMTP_PASS }}
-          SES_FROM_EMAIL: ${{ secrets.SES_FROM_EMAIL }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: SES_SMTP_HOST,SES_SMTP_PORT,SES_SMTP_USER,SES_SMTP_PASS,SES_FROM_EMAIL,DATABASE_URL
           script: |
             mkdir -p ${{ steps.target.outputs.deploy_dir }}
             cd ${{ steps.target.outputs.deploy_dir }}
             tar -xzf /home/ubuntu/deploy.tar.gz
             rm /home/ubuntu/deploy.tar.gz
-
-            printf 'SES_SMTP_HOST=%s\nSES_SMTP_PORT=%s\nSES_SMTP_USER=%s\nSES_SMTP_PASS=%s\nSES_FROM_EMAIL=%s\nDATABASE_URL=%s\n' \
-              "$SES_SMTP_HOST" "$SES_SMTP_PORT" "$SES_SMTP_USER" "$SES_SMTP_PASS" \
-              "$SES_FROM_EMAIL" "$DATABASE_URL" > .env.production
 
             npm install --production
 
